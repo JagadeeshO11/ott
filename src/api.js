@@ -56,3 +56,4 @@ export const fetchFromTMDB = async (endpoint, params = {}) => {
 export const getTrendingMovies = () => fetchFromTMDB('/trending/movie/week');
 export const getMoviesByCategory = (genreId) => fetchFromTMDB('/discover/movie', { with_genres: genreId });
 export const getTeluguMovies = () => fetchFromTMDB('/discover/movie', { with_original_language: 'te', sort_by: 'popularity.desc' });
+export const searchMovies = (query) => fetchFromTMDB('/search/movie', { query, include_adult: false });
