@@ -55,3 +55,4 @@ export const fetchFromTMDB = async (endpoint, params = {}) => {
 // Clean API routes built using the official fetcher
 export const getTrendingMovies = () => fetchFromTMDB('/trending/movie/week');
 export const getMoviesByCategory = (genreId) => fetchFromTMDB('/discover/movie', { with_genres: genreId });
+export const getTeluguMovies = () => fetchFromTMDB('/discover/movie', { with_original_language: 'te', sort_by: 'popularity.desc' });
