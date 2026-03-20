@@ -6,3 +6,11 @@ body {
   color: white;
   min-height: 100vh;
 }
+
+@utility scrollbar-hide {
+  &::-webkit-scrollbar {
+    display: none;
+  }
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
