@@ -1,5 +1,4 @@
-import useEmblaCarousel from 'embla-carousel-react'
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useEffect, useState, useRef } from 'react'
 import { getImageUrl } from './api'
 import MovieModal from './MovieModal'
 
@@ -9,14 +8,19 @@ export default function MovieRow({ title, fetchMovies }) {
   const [error, setError] = useState(false);
   const [selectedMovie, setSelectedMovie] = useState(null);
 
-  const [emblaRef, emblaApi] = useEmblaCarousel({
-    align: 'start',
-    dragFree: true,
-    containScroll: 'trimSnaps'
-  })
+  const scrollContainerRef = useRef(null);
 
-  const scrollPrev = useCallback(() => emblaApi?.scrollPrev(), [emblaApi])
-  const scrollNext = useCallback(() => emblaApi?.scrollNext(), [emblaApi])
+  const scrollPrev = useCallback(() => {
+    if (scrollContainerRef.current) {
+      scrollContainerRef.current.scrollBy({ left: -window.innerWidth * 0.7, behavior: 'smooth' });
+    }
+  }, []);
+
+  const scrollNext = useCallback(() => {
+    if (scrollContainerRef.current) {
+      scrollContainerRef.current.scrollBy({ left: window.innerWidth * 0.7, behavior: 'smooth' });
+    }
+  }, []);
 
   const loadMovies = useCallback(async () => {
     try {
@@ -67,39 +71,40 @@ export default function MovieRow({ title, fetchMovies }) {
 
       {/* SUCCESS UI */}
       {!loading && !error && movies.length > 0 && (
-        <>
-          <div className="overflow-hidden px-4 md:px-2" ref={emblaRef}>
-            <div className="flex gap-4 cursor-grab active:cursor-grabbing">
-              {movies.map((movie) => (
-                <div 
-                  key={movie.id} 
-                  className="flex-none w-32 md:w-44"
-                  onClick={() => setSelectedMovie(movie)} // Opens modal
-                >
-                  <div className="aspect-[2/3] rounded-lg overflow-hidden bg-slate-800 mb-3 shadow-md border border-slate-800 hover:border-slate-400 focus-within:ring-2 focus-within:ring-slate-400 transition-all relative">
-                    <img 
-                      src={getImageUrl(movie.poster_path || movie.backdrop_path)} 
-                      alt={movie.title || movie.name} 
-                      className="w-full h-full object-cover hover:scale-105 transition-transform duration-300 pointer-events-none"
-                      loading="lazy"
-                    />
-                  </div>
-                  <h3 className="text-sm font-medium text-slate-300 hover:text-white truncate transition-colors px-1" title={movie.title || movie.name}>
-                    {movie.title || movie.name}
-                  </h3>
+        <div className="relative group/nav z-10 -mx-4 md:-mx-2 px-4 md:px-2">
+          <div 
+            ref={scrollContainerRef}
+            className="flex gap-4 pb-4 overflow-x-auto custom-scrollbar snap-x snap-mandatory scroll-smooth"
+          >
+            {movies.map((movie) => (
+              <div 
+                key={movie.id} 
+                className="flex-none w-36 md:w-48 lg:w-56 snap-start cursor-pointer hover:z-20 transform transition-transform"
+                onClick={() => setSelectedMovie(movie)} // Opens modal
+              >
+                <div className="aspect-[2/3] rounded-lg overflow-hidden bg-slate-800 mb-3 shadow-md border border-slate-800 hover:border-slate-400 focus-within:ring-2 focus-within:ring-slate-400 transition-all relative">
+                  <img 
+                    src={getImageUrl(movie.poster_path || movie.backdrop_path)} 
+                    alt={movie.title || movie.name} 
+                    className="w-full h-full object-cover relative z-0 hover:scale-105 transition-transform duration-300"
+                    loading="lazy"
+                  />
                 </div>
-              ))}
-            </div>
+                <h3 className="text-sm font-medium text-slate-300 hover:text-white truncate transition-colors px-1" title={movie.title || movie.name}>
+                  {movie.title || movie.name}
+                </h3>
+              </div>
+            ))}
           </div>
 
-          <button onClick={scrollPrev} className="absolute left-0 lg:-left-4 top-[55%] mt-4 -translate-y-1/2 bg-black/70 hover:bg-black text-white p-3 rounded-r-md opacity-0 group-hover:opacity-100 transition-opacity z-10 cursor-pointer hidden md:flex items-center justify-center">
-            <svg xmlns="http://www.w3.org/w/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor" className="w-6 h-6"><path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" /></svg>
+          <button onClick={scrollPrev} className="absolute left-0 lg:-left-6 top-[40%] md:top-[45%] -translate-y-1/2 bg-black/80 hover:bg-black text-white p-3 md:p-4 rounded-full opacity-0 group-hover/nav:opacity-100 transition-opacity z-30 cursor-pointer hidden md:flex items-center justify-center shadow-xl ring-1 ring-white/10 hover:scale-110">
+            <svg xmlns="http://www.w3.org/w/svg" fill="none" viewBox="0 0 24 24" strokeWidth={3} stroke="currentColor" className="w-6 h-6"><path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" /></svg>
           </button>
           
-          <button onClick={scrollNext} className="absolute right-0 lg:-right-4 top-[55%] mt-4 -translate-y-1/2 bg-black/70 hover:bg-black text-white p-3 rounded-l-md opacity-0 group-hover:opacity-100 transition-opacity z-10 cursor-pointer hidden md:flex items-center justify-center">
-            <svg xmlns="http://www.w3.org/w/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor" className="w-6 h-6"><path strokeLinecap="round" strokeLinejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" /></svg>
+          <button onClick={scrollNext} className="absolute right-0 lg:-right-6 top-[40%] md:top-[45%] -translate-y-1/2 bg-black/80 hover:bg-black text-white p-3 md:p-4 rounded-full opacity-0 group-hover/nav:opacity-100 transition-opacity z-30 cursor-pointer hidden md:flex items-center justify-center shadow-xl ring-1 ring-white/10 hover:scale-110">
+            <svg xmlns="http://www.w3.org/w/svg" fill="none" viewBox="0 0 24 24" strokeWidth={3} stroke="currentColor" className="w-6 h-6"><path strokeLinecap="round" strokeLinejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" /></svg>
           </button>
-        </>
+        </div>
       )}
 
       {/* MODAL POPUP */}

@@ -8,7 +8,7 @@ const fetchHorror = () => getMoviesByCategory(27);
 
 function Home() {
   return (
-    <div className="px-4 md:px-8 py-8 w-full max-w-7xl mx-auto">
+    <div className="px-4 md:px-12 lg:px-16 py-8 w-full 2xl:max-w-[2000px] mx-auto">
       {/* Hero Section */}
       <div className="w-full h-[50vh] md:h-[60vh] bg-slate-800 rounded-2xl flex items-end p-8 md:p-12 mb-12 overflow-hidden relative shadow-lg ring-1 ring-slate-700/50 group">
         <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-900/60 to-transparent z-10"></div>

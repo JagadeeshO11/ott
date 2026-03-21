@@ -14,3 +14,19 @@ body {
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
+
+@utility custom-scrollbar {
+  &::-webkit-scrollbar {
+    height: 8px;
+  }
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: #334155; /* slate-700 */
+    border-radius: 4px;
+  }
+  &::-webkit-scrollbar-thumb:hover {
+    background: #475569; /* slate-600 */
+  }
+}
