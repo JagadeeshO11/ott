@@ -26,9 +26,16 @@ export default function Navbar() {
 
   return (
     <nav className="fixed top-0 left-0 w-full h-16 bg-slate-950/90 backdrop-blur-md border-b border-slate-800/50 z-40 flex items-center justify-between px-4 md:px-8">
-      <Link to="/" className="text-3xl font-extrabold text-red-600 tracking-tighter hover:text-red-500 transition-colors">
-        OTT
-      </Link>
+      <div className="flex items-center gap-8">
+        <Link to="/" className="text-3xl font-extrabold text-red-600 tracking-tighter hover:text-red-500 transition-colors">
+          OTT
+        </Link>
+        <div className="hidden lg:flex items-center gap-6 text-sm font-semibold text-slate-300">
+          <a href="#trending" className="hover:text-white transition-colors">Trending</a>
+          <a href="#indian-cinema" className="hover:text-white transition-colors">Indian Cinema</a>
+          <a href="#explore-genres" className="hover:text-white transition-colors">Genres</a>
+        </div>
+      </div>
       
       <div className="relative z-50">
         <div className="relative flex items-center">
