@@ -6,11 +6,13 @@ export default function MovieModal({ movie, onClose }) {
 
   // Prevent body scroll when modal is open
   useEffect(() => {
-    document.body.style.overflow = 'hidden';
-    return () => {
-      document.body.style.overflow = 'unset';
+    if (movie) {
+      document.body.style.overflow = 'hidden';
+      return () => {
+        document.body.style.overflow = 'unset';
+      };
     }
-  }, []);
+  }, [movie]);
 
   useEffect(() => {
     if (movie?.id) {

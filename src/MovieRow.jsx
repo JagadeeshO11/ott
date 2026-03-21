@@ -108,7 +108,7 @@ export default function MovieRow({ title, fetchMovies }) {
       )}
 
       {/* MODAL POPUP */}
-      <MovieModal movie={selectedMovie} onClose={() => setSelectedMovie(null)} />
+      {selectedMovie && <MovieModal movie={selectedMovie} onClose={() => setSelectedMovie(null)} />}
     </div>
   )
 }
