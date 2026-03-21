@@ -74,38 +74,63 @@ export default function MovieRow({ title, fetchMovies }) {
         <div className="relative group/nav z-10 -mx-4 md:-mx-2 px-4 md:px-2">
           <div 
             ref={scrollContainerRef}
-            className="flex gap-4 pb-4 overflow-x-auto custom-scrollbar snap-x snap-mandatory scroll-smooth"
+            // Increased padded layout area avoids clipping the absolute popout hover cards
+            className="flex gap-4 pt-2 pb-14 md:pb-20 overflow-x-auto custom-scrollbar snap-x snap-mandatory scroll-smooth"
           >
             {movies.map((movie) => (
               <div 
                 key={movie.id} 
-                className="flex-none w-36 md:w-56 lg:w-64 snap-start cursor-pointer group/card transition-all duration-300 hover:scale-[1.15] hover:z-40 relative"
+                className="flex-none w-36 md:w-56 lg:w-64 snap-start cursor-pointer group/card relative"
                 onClick={() => setSelectedMovie(movie)} // Opens modal
               >
-                <div className="aspect-[2/3] rounded-lg overflow-hidden bg-slate-800 mb-3 shadow-[0_0_15px_rgba(0,0,0,0.5)] border border-transparent group-hover/card:border-slate-500/50 transition-all relative">
+                {/* 1. Standard Poster (Remains visually static) */}
+                <div className="aspect-[2/3] rounded-md overflow-hidden bg-slate-800 shadow-md transition-opacity duration-300 group-hover/card:opacity-0 relative">
                   <img 
-                    src={getImageUrl(movie.poster_path || movie.backdrop_path)} 
+                    src={getImageUrl(movie.poster_path)} 
                     alt={movie.title || movie.name} 
-                    className="w-full h-full object-cover relative z-0 transition-transform duration-500"
+                    className="w-full h-full object-cover"
                     loading="lazy"
                   />
-                  {/* Smoke Gradient + Info Overlay */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/40 to-transparent opacity-0 group-hover/card:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-3 md:p-4 pb-2 md:pb-3 pointer-events-none">
-                    <h3 className="text-white font-bold text-sm md:text-base leading-tight mb-1 drop-shadow-lg truncate">
-                      {movie.title || movie.name}
-                    </h3>
-                    <div className="flex items-center gap-2 text-[10px] md:text-xs font-semibold text-amber-500 mb-2 drop-shadow-md">
-                      <span>★ {(movie.vote_average ? movie.vote_average.toFixed(1) : 0)}</span>
-                      <span className="text-slate-300">• {movie.release_date?.substring(0,4)}</span>
+                </div>
+                
+                <h3 className="text-xs md:text-sm font-medium text-slate-400 truncate px-1 mt-2 opacity-100 group-hover/card:opacity-0 transition-opacity duration-200" title={movie.title || movie.name}>
+                  {movie.title || movie.name}
+                </h3>
+
+                {/* 2. Hotstar/Netflix Popout Hover Card (Square Shape) */}
+                <div className="absolute top-[40%] left-1/2 -translate-x-1/2 -translate-y-1/2 w-[125%] aspect-square bg-[#0f172a] rounded-xl shadow-[0_15px_45px_rgba(0,0,0,0.8)] opacity-0 invisible group-hover/card:opacity-100 group-hover/card:visible z-[100] flex flex-col overflow-hidden border border-slate-700/50 transition-all duration-300 transform scale-95 group-hover/card:scale-100 delay-100">
+                  
+                  {/* Backdrop Image Header */}
+                  <div className="relative w-full h-[45%] bg-slate-800 flex-shrink-0">
+                    <img 
+                      src={getImageUrl(movie.backdrop_path || movie.poster_path)} 
+                      className="w-full h-full object-cover" 
+                      alt="Backdrop"
+                      loading="lazy"
+                    />
+                    <div className="absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-[#0f172a] to-transparent"></div>
+                  </div>
+
+                  {/* Content Body */}
+                  <div className="p-3 md:p-4 flex-1 flex flex-col justify-between bg-[#0f172a]">
+                    <div className="flex-1">
+                      <h4 className="text-white font-[700] text-sm md:text-base leading-tight line-clamp-1">{movie.title || movie.name}</h4>
+                      <div className="flex items-center gap-2 mt-1.5 md:mt-2">
+                        <span className="text-emerald-400 text-[10px] md:text-[11px] font-bold bg-white/10 px-1.5 py-0.5 rounded-[4px]">★ {movie.vote_average?.toFixed(1) || 0}</span>
+                        <span className="text-slate-400 text-[10px] md:text-[11px] font-semibold">{movie.release_date?.substring(0,4)}</span>
+                      </div>
+                      <p className="text-slate-300/80 text-[10px] md:text-[11px] font-[500] line-clamp-3 mt-2 md:mt-3 leading-relaxed">
+                        {movie.overview || "No description available."}
+                      </p>
                     </div>
-                    <button className="bg-white/20 text-white w-full py-1 md:py-1.5 rounded text-[10px] md:text-xs font-bold transition-colors backdrop-blur-sm shadow-sm pointer-events-auto hover:bg-white hover:text-black">
-                      Watch Now
+
+                    <button className="w-full bg-white hover:bg-slate-200 text-slate-900 font-bold py-1.5 md:py-2 rounded-[4px] text-[10px] md:text-sm flex items-center justify-center gap-2 transition-colors mt-2 shadow-[0_0_10px_rgba(255,255,255,0.1)] hover:shadow-[0_0_15px_rgba(255,255,255,0.3)]">
+                      <svg fill="currentColor" viewBox="0 0 24 24" className="w-3 md:w-3.5 h-3 md:h-3.5"><path d="M4.5 5.653c0-1.426 1.529-2.33 2.779-1.643l11.54 6.348c1.295.712 1.295 2.573 0 3.285L7.28 19.991c-1.25.687-2.779-.217-2.779-1.643V5.653z" /></svg>
+                      Watch Trailer
                     </button>
                   </div>
                 </div>
-                <h3 className="text-xs md:text-sm font-medium text-slate-400 truncate px-1 opacity-100 group-hover/card:opacity-0 transition-opacity duration-200" title={movie.title || movie.name}>
-                  {movie.title || movie.name}
-                </h3>
+
               </div>
             ))}
           </div>
