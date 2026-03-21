@@ -1,10 +1,18 @@
 import MovieRow from './MovieRow'
-import { getTrendingMovies, getMoviesByCategory, getTeluguMovies } from './api'
+import { getTrendingMovies, getMoviesByCategory, getMoviesByLanguage } from './api'
 
 // Define fetch functions outside component to maintain stable references
+// Indian Cinema Languages
+const fetchTelugu = () => getMoviesByLanguage('te');
+const fetchHindi = () => getMoviesByLanguage('hi');
+const fetchTamil = () => getMoviesByLanguage('ta');
+const fetchMalayalam = () => getMoviesByLanguage('ml');
+
+// Global Genres
 const fetchAction = () => getMoviesByCategory(28);
 const fetchComedy = () => getMoviesByCategory(35);
 const fetchHorror = () => getMoviesByCategory(27);
+const fetchSciFi = () => getMoviesByCategory(878);
 
 function Home() {
   return (
@@ -36,11 +44,30 @@ function Home() {
         </div>
       </div>
 
-      {/* Dynamic Movie Rows fetching live TMDB Data */}
-      <MovieRow title="Trending Now" fetchMovies={getTrendingMovies} />
-      <MovieRow title="Tollywood Hits" fetchMovies={getTeluguMovies} />
-      <MovieRow title="Action Blockbusters" fetchMovies={fetchAction} />
-      <MovieRow title="Comedy Hits" fetchMovies={fetchComedy} />
+      <div className="space-y-4 md:space-y-8">
+        <div className="mb-8 md:mb-12">
+          <h2 className="text-2xl md:text-3xl font-bold text-white mb-2 ml-4 md:ml-2">Global Trending</h2>
+          <MovieRow title="Trending Now" fetchMovies={getTrendingMovies} />
+        </div>
+
+        <div className="mb-8 md:mb-12">
+          <h2 className="text-2xl md:text-3xl font-bold text-red-500 mb-2 ml-4 md:ml-2">Indian Cinema Hub</h2>
+          <div className="bg-slate-800/20 rounded-2xl py-2 md:py-6 backdrop-blur-sm border border-slate-800/50">
+            <MovieRow title="Tollywood Blockbusters" fetchMovies={fetchTelugu} />
+            <MovieRow title="Bollywood Hits" fetchMovies={fetchHindi} />
+            <MovieRow title="Kollywood Blockbusters" fetchMovies={fetchTamil} />
+            <MovieRow title="Mollywood Cinema" fetchMovies={fetchMalayalam} />
+          </div>
+        </div>
+
+        <div className="mb-8 md:mb-12">
+          <h2 className="text-2xl md:text-3xl font-bold text-blue-400 mb-2 ml-4 md:ml-2">Explore Genres</h2>
+          <MovieRow title="Action & Adventure" fetchMovies={fetchAction} />
+          <MovieRow title="Sci-Fi & Fantasy" fetchMovies={fetchSciFi} />
+          <MovieRow title="Comedy Specials" fetchMovies={fetchComedy} />
+          <MovieRow title="Horror Highlights" fetchMovies={fetchHorror} />
+        </div>
+      </div>
     </div>
   )
 }
