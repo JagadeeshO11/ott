@@ -18,8 +18,8 @@ function Home() {
   return (
     <div className="py-8 w-full 2xl:max-w-[2000px] mx-auto overflow-x-hidden">
       {/* Hero Section */}
-      <div className="px-4 md:px-12 lg:px-16 w-full mb-12">
-        <div className="w-full h-[50vh] md:h-[60vh] bg-slate-800 rounded-2xl flex items-end p-8 md:p-12 overflow-hidden relative shadow-lg ring-1 ring-slate-700/50 group">
+      <div className="w-full mb-12">
+        <div className="w-full h-[55vh] md:h-[65vh] bg-slate-800 flex items-end p-8 md:p-16 overflow-hidden relative shadow-lg group">
           <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-900/60 to-transparent z-10"></div>
         <img 
           src="https://images.unsplash.com/photo-1626814026160-2237a95fc5a0?auto=format&fit=crop&q=80&w=1920&h=1080" 
@@ -52,7 +52,7 @@ function Home() {
           <MovieRow title="Trending Now" fetchMovies={getTrendingMovies} />
         </div>
 
-        <div id="indian-cinema" className="mb-8 md:mb-12 bg-slate-800/10 py-6 md:py-10 border-y border-slate-800/40 shadow-inner">
+        <div id="indian-cinema" className="mb-8 md:mb-12">
           <h2 className="text-2xl md:text-3xl font-bold text-red-500 mb-6 px-4 md:px-12 lg:px-16 drop-shadow-md">Indian Cinema Hub</h2>
           <div>
             <MovieRow title="Tollywood Blockbusters" fetchMovies={fetchTelugu} />

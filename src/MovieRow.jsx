@@ -47,8 +47,8 @@ export default function MovieRow({ title, fetchMovies }) {
       {loading && (
         <div className="flex gap-4 px-4 md:px-12 lg:px-16 overflow-hidden">
           {[...Array(6)].map((_, i) => (
-            <div key={i} className="flex-none w-32 md:w-44">
-              <div className="aspect-[2/3] rounded-lg bg-slate-800 animate-pulse mb-3 border border-slate-700/50"></div>
+             <div key={i} className="flex-none w-28 md:w-36 lg:w-44">
+               <div className="aspect-[2/3] rounded-lg bg-slate-800 animate-pulse mb-3 border border-slate-700/50"></div>
               <div className="h-4 bg-slate-800 animate-pulse rounded w-3/4 mb-1"></div>
               <div className="h-3 bg-slate-800/50 animate-pulse rounded w-1/2"></div>
             </div>
@@ -75,12 +75,12 @@ export default function MovieRow({ title, fetchMovies }) {
           <div 
             ref={scrollContainerRef}
             // Interior padded layout area avoids clipping absolute popouts while seamlessly scrolling past edges
-            className="flex gap-4 pt-2 pb-14 md:pb-24 px-4 md:px-12 lg:px-16 overflow-x-auto scrollbar-hide snap-x snap-mandatory scroll-smooth"
+            className="flex gap-4 pt-2 pb-14 md:pb-24 px-4 md:px-12 lg:px-16 overflow-x-auto no-scrollbar snap-x snap-mandatory scroll-smooth"
           >
             {movies.map((movie) => (
               <div 
                 key={movie.id} 
-                className="flex-none w-36 md:w-56 lg:w-64 snap-start cursor-pointer group/card relative"
+                className="flex-none w-28 md:w-36 lg:w-44 snap-start cursor-pointer group/card relative"
                 onClick={() => setSelectedMovie(movie)} // Opens modal
               >
                 {/* 1. Standard Poster (Remains visually static) */}
@@ -98,7 +98,7 @@ export default function MovieRow({ title, fetchMovies }) {
                 </h3>
 
                 {/* 2. Hotstar/Netflix Popout Hover Card (Massive Popout Scale) */}
-                <div className="absolute top-[40%] left-1/2 -translate-x-1/2 -translate-y-1/2 w-[160%] aspect-square bg-[#0f172a] rounded-xl shadow-[0_25px_65px_rgba(0,0,0,0.95)] opacity-0 invisible group-hover/card:opacity-100 group-hover/card:visible z-[100] flex flex-col overflow-hidden border border-slate-700/50 transition-all duration-300 transform scale-90 group-hover/card:scale-100 delay-[150ms]">
+                <div className="absolute top-[40%] left-1/2 -translate-x-1/2 -translate-y-1/2 w-[200%] aspect-square bg-[#0f172a] rounded-xl shadow-[0_25px_65px_rgba(0,0,0,0.95)] opacity-0 invisible group-hover/card:opacity-100 group-hover/card:visible z-[100] flex flex-col overflow-hidden border border-slate-700/50 transition-all duration-300 transform scale-90 group-hover/card:scale-100 delay-[150ms]">
                   
                   {/* Backdrop Image Header */}
                   <div className="relative w-full h-[45%] bg-slate-800 flex-shrink-0">
