@@ -45,12 +45,12 @@ function Home() {
       </div>
 
       <div className="space-y-4 md:space-y-8">
-        <div id="trending" className="mb-8 md:mb-12 scroll-mt-24">
+        <div id="trending" className="mb-8 md:mb-12">
           <h2 className="text-2xl md:text-3xl font-bold text-white mb-2 ml-4 md:ml-2">Global Trending</h2>
           <MovieRow title="Trending Now" fetchMovies={getTrendingMovies} />
         </div>
 
-        <div id="indian-cinema" className="mb-8 md:mb-12 scroll-mt-24">
+        <div id="indian-cinema" className="mb-8 md:mb-12">
           <h2 className="text-2xl md:text-3xl font-bold text-red-500 mb-2 ml-4 md:ml-2">Indian Cinema Hub</h2>
           <div className="bg-slate-800/20 rounded-2xl py-2 md:py-6 backdrop-blur-sm border border-slate-800/50">
             <MovieRow title="Tollywood Blockbusters" fetchMovies={fetchTelugu} />
