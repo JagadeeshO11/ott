@@ -26,7 +26,7 @@ export default function Navbar() {
   return (
     <>
       {/* Sidebar Navigation */}
-      <nav className="fixed top-0 left-0 h-screen w-[4.5rem] md:w-20 hover:w-64 bg-slate-950/80 backdrop-blur-xl border-r border-white/5 z-50 flex flex-col transition-all duration-300 group overflow-x-hidden">
+      <nav className="fixed top-0 left-0 h-screen w-[4.5rem] md:w-20 hover:w-[280px] bg-slate-950/90 group-hover:bg-gradient-to-r group-hover:from-[#0f172a] group-hover:via-[#0f172a]/95 group-hover:to-transparent backdrop-blur-xl group-hover:backdrop-blur-sm border-r border-white/5 group-hover:border-transparent z-50 flex flex-col transition-all duration-500 group overflow-x-hidden">
         
         {/* LOGO */}
         <div className="flex flex-col items-center justify-center py-8 min-w-[72px] md:min-w-[80px]">
@@ -78,12 +78,6 @@ export default function Navbar() {
             <svg className="w-[22px] h-[22px] flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2"><path strokeLinecap="round" strokeLinejoin="round" d="M3.375 19.5h17.25m-17.25 0a1.125 1.125 0 0 1-1.125-1.125M3.375 19.5h1.5C5.496 19.5 6 18.996 6 18.375m-3.625 0V5.625m0 12.75v-1.5c0-.621.504-1.125 1.125-1.125m18.375 2.625V5.625m0 12.75c0 .621-.504 1.125-1.125 1.125m1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125m0 3.75h-1.5A1.125 1.125 0 0 1 18 18.375M20.625 4.5H3.375m17.25 0c.621 0 1.125.504 1.125 1.125M20.625 4.5h-1.5C18.504 4.5 18 5.004 18 5.625m3.625 0v1.5c0 .621-.504 1.125-1.125 1.125M3.375 4.5c-.621 0-1.125.504-1.125 1.125M3.375 4.5h1.5C5.496 4.5 6 5.004 6 5.625m-3.625 0v1.5c0 .621.504 1.125 1.125 1.125m0 0h1.5m-1.5 0c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125m1.5-3.75C5.496 8.25 6 7.746 6 7.125v-1.5M4.875 8.25C5.496 8.25 6 8.754 6 9.375v1.5m0-5.25v5.25m0-5.25C6 5.004 6.504 4.5 7.125 4.5h9.75c.621 0 1.125.504 1.125 1.125m1.125 2.625h1.5m-1.5 0A1.125 1.125 0 0 1 18 7.125v-1.5m1.125 2.625c-.621 0-1.125.504-1.125 1.125v1.5m2.625-2.625c.621 0 1.125.504 1.125 1.125v1.5c0 .621-.504 1.125-1.125 1.125m-1.5-3.75C18.504 8.25 18 7.746 18 7.125v-1.5m1.125 5.25h-1.5m1.5 0A1.125 1.125 0 0 1 18 10.875v-1.5m-1.5 2.625h1.5m-1.5 0A1.125 1.125 0 0 1 16.5 10.875v-1.5" /></svg>
             <span className="ml-[22px] font-[500] text-[15px] opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap transform group-hover/item:translate-x-1 tracking-wide">Movies</span>
           </a>
-
-          {/* Sports */}
-          <div className="flex items-center p-3 rounded-xl hover:bg-white/10 cursor-pointer text-slate-400 hover:text-white transition-colors group/item">
-            <svg className="w-[22px] h-[22px] flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2"><path strokeLinecap="round" strokeLinejoin="round" d="M15.362 5.214A8.252 8.252 0 0 1 12 21 8.25 8.25 0 0 1 6.038 7.047 8.287 8.287 0 0 0 9 9.601a8.983 8.983 0 0 1 3.361-6.866 8.21 8.21 0 0 0 3 2.48Z" /><path strokeLinecap="round" strokeLinejoin="round" d="M12 18a3.75 3.75 0 0 0 .495-7.468 5.99 5.99 0 0 0-1.925 3.547 5.975 5.975 0 0 1-2.133-1.001A3.75 3.75 0 0 0 12 18Z" /></svg>
-            <span className="ml-[22px] font-[500] text-[15px] opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap transform group-hover/item:translate-x-1 tracking-wide">Sports</span>
-          </div>
 
           {/* Categories */}
           <a href="#explore-genres" className="flex items-center p-3 rounded-xl hover:bg-white/10 cursor-pointer text-slate-400 hover:text-white transition-colors group/item">

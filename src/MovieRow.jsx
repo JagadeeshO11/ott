@@ -79,18 +79,31 @@ export default function MovieRow({ title, fetchMovies }) {
             {movies.map((movie) => (
               <div 
                 key={movie.id} 
-                className="flex-none w-36 md:w-48 lg:w-56 snap-start cursor-pointer hover:z-20 transform transition-transform"
+                className="flex-none w-36 md:w-56 lg:w-64 snap-start cursor-pointer group/card transition-all duration-300 hover:scale-[1.15] hover:z-40 relative"
                 onClick={() => setSelectedMovie(movie)} // Opens modal
               >
-                <div className="aspect-[2/3] rounded-lg overflow-hidden bg-slate-800 mb-3 shadow-md border border-slate-800 hover:border-slate-400 focus-within:ring-2 focus-within:ring-slate-400 transition-all relative">
+                <div className="aspect-[2/3] rounded-lg overflow-hidden bg-slate-800 mb-3 shadow-[0_0_15px_rgba(0,0,0,0.5)] border border-transparent group-hover/card:border-slate-500/50 transition-all relative">
                   <img 
                     src={getImageUrl(movie.poster_path || movie.backdrop_path)} 
                     alt={movie.title || movie.name} 
-                    className="w-full h-full object-cover relative z-0 hover:scale-105 transition-transform duration-300"
+                    className="w-full h-full object-cover relative z-0 transition-transform duration-500"
                     loading="lazy"
                   />
+                  {/* Smoke Gradient + Info Overlay */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/40 to-transparent opacity-0 group-hover/card:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-3 md:p-4 pb-2 md:pb-3 pointer-events-none">
+                    <h3 className="text-white font-bold text-sm md:text-base leading-tight mb-1 drop-shadow-lg truncate">
+                      {movie.title || movie.name}
+                    </h3>
+                    <div className="flex items-center gap-2 text-[10px] md:text-xs font-semibold text-amber-500 mb-2 drop-shadow-md">
+                      <span>★ {(movie.vote_average ? movie.vote_average.toFixed(1) : 0)}</span>
+                      <span className="text-slate-300">• {movie.release_date?.substring(0,4)}</span>
+                    </div>
+                    <button className="bg-white/20 text-white w-full py-1 md:py-1.5 rounded text-[10px] md:text-xs font-bold transition-colors backdrop-blur-sm shadow-sm pointer-events-auto hover:bg-white hover:text-black">
+                      Watch Now
+                    </button>
+                  </div>
                 </div>
-                <h3 className="text-sm font-medium text-slate-300 hover:text-white truncate transition-colors px-1" title={movie.title || movie.name}>
+                <h3 className="text-xs md:text-sm font-medium text-slate-400 truncate px-1 opacity-100 group-hover/card:opacity-0 transition-opacity duration-200" title={movie.title || movie.name}>
                   {movie.title || movie.name}
                 </h3>
               </div>
