@@ -84,7 +84,18 @@ export const fetchFromTMDB = async (endpoint, params = {}) => {
 
 // Clean API routes built using the official fetcher
 export const getTrendingMovies = () => fetchFromTMDB('/trending/movie/week');
-export const getMoviesByCategory = (genreId) => fetchFromTMDB('/discover/movie', { with_genres: genreId });
-export const getMoviesByLanguage = (lang) => fetchFromTMDB('/discover/movie', { with_original_language: lang, sort_by: 'popularity.desc' });
+
+export const getMoviesByCategory = async (genreId) => {
+  const movies = await fetchFromTMDB('/discover/movie', { with_genres: genreId });
+  // local sort by year/date descending (newest first)
+  return movies?.sort((a, b) => new Date(b.release_date || 0) - new Date(a.release_date || 0));
+};
+
+export const getMoviesByLanguage = async (lang) => {
+  const movies = await fetchFromTMDB('/discover/movie', { with_original_language: lang, sort_by: 'popularity.desc' });
+  // local sort by year/date descending (newest first)
+  return movies?.sort((a, b) => new Date(b.release_date || 0) - new Date(a.release_date || 0));
+};
+
 export const searchMovies = (query) => fetchFromTMDB('/search/movie', { query, include_adult: false });
 export const getMovieProviders = (movieId) => fetchFromTMDB(`/movie/${movieId}/watch/providers`);
