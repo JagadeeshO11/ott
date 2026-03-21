@@ -41,11 +41,11 @@ export default function MovieRow({ title, fetchMovies }) {
 
   return (
     <div className="mb-8 relative group min-h-[220px]">
-      <h2 className="text-xl md:text-2xl font-semibold mb-4 text-slate-100 px-4 md:px-2">{title}</h2>
+      <h2 className="text-lg md:text-xl lg:text-2xl font-semibold mb-4 text-slate-100 px-4 md:px-12 lg:px-16">{title}</h2>
       
       {/* SKELETON LOADING UI */}
       {loading && (
-        <div className="flex gap-4 px-4 md:px-2 overflow-hidden">
+        <div className="flex gap-4 px-4 md:px-12 lg:px-16 overflow-hidden">
           {[...Array(6)].map((_, i) => (
             <div key={i} className="flex-none w-32 md:w-44">
               <div className="aspect-[2/3] rounded-lg bg-slate-800 animate-pulse mb-3 border border-slate-700/50"></div>
@@ -71,11 +71,11 @@ export default function MovieRow({ title, fetchMovies }) {
 
       {/* SUCCESS UI */}
       {!loading && !error && movies.length > 0 && (
-        <div className="relative group/nav z-10 -mx-4 md:-mx-2 px-4 md:px-2">
+        <div className="relative group/nav z-10">
           <div 
             ref={scrollContainerRef}
-            // Increased padded layout area avoids clipping the absolute popout hover cards
-            className="flex gap-4 pt-2 pb-14 md:pb-20 overflow-x-auto custom-scrollbar snap-x snap-mandatory scroll-smooth"
+            // Interior padded layout area avoids clipping absolute popouts while seamlessly scrolling past edges
+            className="flex gap-4 pt-2 pb-14 md:pb-24 px-4 md:px-12 lg:px-16 overflow-x-auto scrollbar-hide snap-x snap-mandatory scroll-smooth"
           >
             {movies.map((movie) => (
               <div 
@@ -97,8 +97,8 @@ export default function MovieRow({ title, fetchMovies }) {
                   {movie.title || movie.name}
                 </h3>
 
-                {/* 2. Hotstar/Netflix Popout Hover Card (Square Shape) */}
-                <div className="absolute top-[40%] left-1/2 -translate-x-1/2 -translate-y-1/2 w-[125%] aspect-square bg-[#0f172a] rounded-xl shadow-[0_15px_45px_rgba(0,0,0,0.8)] opacity-0 invisible group-hover/card:opacity-100 group-hover/card:visible z-[100] flex flex-col overflow-hidden border border-slate-700/50 transition-all duration-300 transform scale-95 group-hover/card:scale-100 delay-100">
+                {/* 2. Hotstar/Netflix Popout Hover Card (Massive Popout Scale) */}
+                <div className="absolute top-[40%] left-1/2 -translate-x-1/2 -translate-y-1/2 w-[160%] aspect-square bg-[#0f172a] rounded-xl shadow-[0_25px_65px_rgba(0,0,0,0.95)] opacity-0 invisible group-hover/card:opacity-100 group-hover/card:visible z-[100] flex flex-col overflow-hidden border border-slate-700/50 transition-all duration-300 transform scale-90 group-hover/card:scale-100 delay-[150ms]">
                   
                   {/* Backdrop Image Header */}
                   <div className="relative w-full h-[45%] bg-slate-800 flex-shrink-0">

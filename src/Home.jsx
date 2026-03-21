@@ -16,10 +16,11 @@ const fetchSciFi = () => getMoviesByCategory(878);
 
 function Home() {
   return (
-    <div className="px-4 md:px-12 lg:px-16 py-8 w-full 2xl:max-w-[2000px] mx-auto">
+    <div className="py-8 w-full 2xl:max-w-[2000px] mx-auto overflow-x-hidden">
       {/* Hero Section */}
-      <div className="w-full h-[50vh] md:h-[60vh] bg-slate-800 rounded-2xl flex items-end p-8 md:p-12 mb-12 overflow-hidden relative shadow-lg ring-1 ring-slate-700/50 group">
-        <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-900/60 to-transparent z-10"></div>
+      <div className="px-4 md:px-12 lg:px-16 w-full mb-12">
+        <div className="w-full h-[50vh] md:h-[60vh] bg-slate-800 rounded-2xl flex items-end p-8 md:p-12 overflow-hidden relative shadow-lg ring-1 ring-slate-700/50 group">
+          <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-900/60 to-transparent z-10"></div>
         <img 
           src="https://images.unsplash.com/photo-1626814026160-2237a95fc5a0?auto=format&fit=crop&q=80&w=1920&h=1080" 
           alt="Featured Trailer Background" 
@@ -43,16 +44,17 @@ function Home() {
           </button>
         </div>
       </div>
+      </div>
 
       <div className="space-y-4 md:space-y-8">
         <div id="trending" className="mb-8 md:mb-12">
-          <h2 className="text-2xl md:text-3xl font-bold text-white mb-2 ml-4 md:ml-2">Global Trending</h2>
+          <h2 className="text-2xl md:text-3xl font-bold text-white mb-2 px-4 md:px-12 lg:px-16">Global Trending</h2>
           <MovieRow title="Trending Now" fetchMovies={getTrendingMovies} />
         </div>
 
-        <div id="indian-cinema" className="mb-8 md:mb-12">
-          <h2 className="text-2xl md:text-3xl font-bold text-red-500 mb-2 ml-4 md:ml-2">Indian Cinema Hub</h2>
-          <div className="bg-slate-800/20 rounded-2xl py-2 md:py-6 backdrop-blur-sm border border-slate-800/50">
+        <div id="indian-cinema" className="mb-8 md:mb-12 bg-slate-800/10 py-6 md:py-10 border-y border-slate-800/40 shadow-inner">
+          <h2 className="text-2xl md:text-3xl font-bold text-red-500 mb-6 px-4 md:px-12 lg:px-16 drop-shadow-md">Indian Cinema Hub</h2>
+          <div>
             <MovieRow title="Tollywood Blockbusters" fetchMovies={fetchTelugu} />
             <MovieRow title="Bollywood Hits" fetchMovies={fetchHindi} />
             <MovieRow title="Kollywood Blockbusters" fetchMovies={fetchTamil} />
@@ -60,8 +62,8 @@ function Home() {
           </div>
         </div>
 
-        <div id="explore-genres" className="mb-8 md:mb-12 scroll-mt-24">
-          <h2 className="text-2xl md:text-3xl font-bold text-blue-400 mb-2 ml-4 md:ml-2">Explore Genres</h2>
+        <div id="explore-genres" className="mb-8 md:mb-12 pt-4">
+          <h2 className="text-2xl md:text-3xl font-bold text-blue-400 mb-6 px-4 md:px-12 lg:px-16 drop-shadow-md">Explore Genres</h2>
           <MovieRow title="Action & Adventure" fetchMovies={fetchAction} />
           <MovieRow title="Sci-Fi & Fantasy" fetchMovies={fetchSciFi} />
           <MovieRow title="Comedy Specials" fetchMovies={fetchComedy} />
