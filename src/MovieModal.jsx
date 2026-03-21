@@ -1,7 +1,9 @@
 import { useEffect, useState } from 'react'
 import { getMovieProviders } from './api'
+import MovieRow from './MovieRow'
+import { getRecommendedLocalMovies } from './recommendations'
 
-export default function MovieModal({ movie, onClose }) {
+export default function MovieModal({ movie, allMovies = [], onClose }) {
   const [providers, setProviders] = useState(null);
 
   // Prevent body scroll when modal is open
@@ -28,13 +30,15 @@ export default function MovieModal({ movie, onClose }) {
 
   if (!movie) return null;
 
+  const recommendedMovies = getRecommendedLocalMovies(allMovies, movie);
+
   return (
     <div 
       className="fixed inset-0 z-[100] flex items-center justify-center bg-black/80 backdrop-blur-sm p-4 animate-in fade-in duration-200" 
       onClick={onClose}
     >
       <div 
-        className="bg-slate-900 rounded-2xl max-w-3xl w-full overflow-hidden relative shadow-2xl ring-1 ring-slate-800 animate-in zoom-in-95 duration-200" 
+        className="bg-slate-900 rounded-2xl max-w-4xl w-full h-[90vh] overflow-y-auto relative shadow-2xl ring-1 ring-slate-800 animate-in zoom-in-95 duration-200 custom-scrollbar" 
         onClick={e => e.stopPropagation()}
       >
         <button 
@@ -102,6 +106,15 @@ export default function MovieModal({ movie, onClose }) {
             <svg xmlns="http://www.w3.org/w/svg" viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5"><path fillRule="evenodd" d="M4.5 5.653c0-1.426 1.529-2.33 2.779-1.643l11.54 6.348c1.295.712 1.295 2.573 0 3.285L7.28 19.991c-1.25.687-2.779-.217-2.779-1.643V5.653z" clipRule="evenodd" /></svg>
             Play Now
           </button>
+          
+          {recommendedMovies.length > 0 && (
+            <div className="mt-12 pt-6 border-t border-slate-800/80 -mx-4 md:-mx-8">
+              <MovieRow 
+                title="Recommended Movies" 
+                fetchMovies={async () => recommendedMovies} 
+              />
+            </div>
+          )}
         </div>
       </div>
     </div>
