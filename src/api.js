@@ -29,6 +29,24 @@ export const fetchFromTMDB = async (endpoint, params = {}) => {
     // Safely append custom params like with_genres
     Object.keys(params).forEach(key => url.searchParams.append(key, params[key]));
 
+    // Check Cache (Valid for 24 hours)
+    const urlString = url.toString();
+    const cacheKey = `tmdb_${urlString}`;
+    const cachedItem = localStorage.getItem(cacheKey);
+    
+    if (cachedItem) {
+      try {
+        const { timestamp, data } = JSON.parse(cachedItem);
+        const ONE_DAY = 24 * 60 * 60 * 1000;
+        if (Date.now() - timestamp < ONE_DAY) {
+          console.log("Serving from cache:", endpoint);
+          return data;
+        }
+      } catch (e) {
+        console.error("Cache parsing error", e);
+      }
+    }
+
     // 2. Official TMDB Headers setup
     const options = {
       method: 'GET',
@@ -38,14 +56,26 @@ export const fetchFromTMDB = async (endpoint, params = {}) => {
       }
     };
 
-    const res = await fetch(url.toString(), options);
+    const res = await fetch(urlString, options);
     
     if (!res.ok) {
       throw new Error(`TMDB API Error: ${res.status}`);
     }
 
     const data = await res.json();
-    return data.results;
+    const returnData = data.results !== undefined ? data.results : data;
+    
+    // Save to Cache
+    try {
+      localStorage.setItem(cacheKey, JSON.stringify({
+        timestamp: Date.now(),
+        data: returnData
+      }));
+    } catch (e) {
+      console.warn("LocalStorage full or disabled", e);
+    }
+
+    return returnData;
   } catch (err) {
     console.error("Fetch Error:", err);
     throw err;
@@ -57,3 +87,4 @@ export const getTrendingMovies = () => fetchFromTMDB('/trending/movie/week');
 export const getMoviesByCategory = (genreId) => fetchFromTMDB('/discover/movie', { with_genres: genreId });
 export const getTeluguMovies = () => fetchFromTMDB('/discover/movie', { with_original_language: 'te', sort_by: 'popularity.desc' });
 export const searchMovies = (query) => fetchFromTMDB('/search/movie', { query, include_adult: false });
+export const getMovieProviders = (movieId) => fetchFromTMDB(`/movie/${movieId}/watch/providers`);

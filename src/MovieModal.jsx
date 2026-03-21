@@ -1,6 +1,9 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
+import { getMovieProviders } from './api'
 
 export default function MovieModal({ movie, onClose }) {
+  const [providers, setProviders] = useState(null);
+
   // Prevent body scroll when modal is open
   useEffect(() => {
     document.body.style.overflow = 'hidden';
@@ -8,6 +11,18 @@ export default function MovieModal({ movie, onClose }) {
       document.body.style.overflow = 'unset';
     }
   }, []);
+
+  useEffect(() => {
+    if (movie?.id) {
+      getMovieProviders(movie.id)
+        .then(data => {
+          // Prioritize IN (India), then US, then fallback to first available
+          const countryData = data?.IN || data?.US || Object.values(data || {})[0];
+          if (countryData) setProviders(countryData);
+        })
+        .catch(console.error);
+    }
+  }, [movie]);
 
   if (!movie) return null;
 
@@ -50,6 +65,36 @@ export default function MovieModal({ movie, onClose }) {
           <p className="text-slate-200 leading-relaxed text-sm md:text-lg mb-6 max-w-2xl">
             {movie.overview || "No description available for this title."}
           </p>
+          
+          {providers && (
+            <div className="mb-6 animate-in fade-in slide-in-from-bottom-2 duration-300">
+              <h3 className="text-sm font-semibold text-slate-400 mb-2 uppercase tracking-wider">Available on</h3>
+              <div className="flex flex-wrap gap-3 items-center">
+                {Array.from(new Map(
+                  [...(providers.flatrate || []), ...(providers.rent || []), ...(providers.buy || [])]
+                    .map(p => [p.provider_id, p])
+                ).values()).slice(0, 5).map(provider => (
+                  <img 
+                    key={provider.provider_id}
+                    src={`https://image.tmdb.org/t/p/w200${provider.logo_path}`} 
+                    alt={provider.provider_name}
+                    title={provider.provider_name}
+                    className="w-10 h-10 rounded-lg shadow-sm"
+                  />
+                ))}
+                {providers.link && (
+                  <a 
+                    href={providers.link} 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="text-sm bg-slate-800 hover:bg-slate-700 text-white px-3 py-2 rounded-lg transition-colors ml-2"
+                  >
+                    Watch Links &rarr;
+                  </a>
+                )}
+              </div>
+            </div>
+          )}
           
           <button className="bg-white hover:bg-slate-200 text-black font-bold py-2 md:py-3 px-8 rounded-lg transition-colors cursor-pointer flex items-center gap-2">
             <svg xmlns="http://www.w3.org/w/svg" viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5"><path fillRule="evenodd" d="M4.5 5.653c0-1.426 1.529-2.33 2.779-1.643l11.54 6.348c1.295.712 1.295 2.573 0 3.285L7.28 19.991c-1.25.687-2.779-.217-2.779-1.643V5.653z" clipRule="evenodd" /></svg>
