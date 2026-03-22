@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState, useRef } from 'react'
+﻿import { useCallback, useEffect, useState, useRef } from 'react'
 import { getImageUrl } from './api'
 import MovieModal from './MovieModal'
 
@@ -41,11 +41,11 @@ export default function MovieRow({ title, fetchMovies }) {
 
   return (
     <div className="mb-8 relative group min-h-[220px]">
-      <h2 className="text-lg md:text-xl lg:text-2xl font-semibold mb-4 text-slate-100 px-4 md:px-12 lg:px-16">{title}</h2>
+      <h2 className="text-lg md:text-xl lg:text-2xl font-semibold mb-4 text-slate-100 px-4 md:px-6">{title}</h2>
       
       {/* SKELETON LOADING UI */}
       {loading && (
-        <div className="flex gap-4 px-4 md:px-12 lg:px-16 overflow-hidden">
+        <div className="flex gap-4 px-4 md:px-6 overflow-hidden">
           {[...Array(6)].map((_, i) => (
              <div key={i} className="flex-none w-28 md:w-36 lg:w-44">
                <div className="aspect-[2/3] rounded-lg bg-slate-800 animate-pulse mb-3 border border-slate-700/50"></div>
@@ -75,7 +75,7 @@ export default function MovieRow({ title, fetchMovies }) {
           <div 
             ref={scrollContainerRef}
             // Interior padded layout area avoids clipping absolute popouts while seamlessly scrolling past edges
-            className="flex gap-4 pt-2 pb-14 md:pb-24 px-4 md:px-12 lg:px-16 overflow-x-auto no-scrollbar snap-x snap-mandatory scroll-smooth"
+            className="flex gap-4 pt-2 pb-14 md:pb-24 px-4 md:px-6 overflow-x-auto no-scrollbar snap-x snap-mandatory scroll-smooth"
           >
             {movies.map((movie) => (
               <div 
@@ -116,7 +116,7 @@ export default function MovieRow({ title, fetchMovies }) {
                     <div className="flex-1">
                       <h4 className="text-white font-[700] text-sm md:text-base leading-tight line-clamp-1">{movie.title || movie.name}</h4>
                       <div className="flex items-center gap-2 mt-1.5 md:mt-2">
-                        <span className="text-emerald-400 text-[10px] md:text-[11px] font-bold bg-white/10 px-1.5 py-0.5 rounded-[4px]">★ {movie.vote_average?.toFixed(1) || 0}</span>
+                        <span className="text-emerald-400 text-[10px] md:text-[11px] font-bold bg-white/10 px-1.5 py-0.5 rounded-[4px]">â˜… {movie.vote_average?.toFixed(1) || 0}</span>
                         <span className="text-slate-400 text-[10px] md:text-[11px] font-semibold">{movie.release_date?.substring(0,4)}</span>
                       </div>
                       <p className="text-slate-300/80 text-[10px] md:text-[11px] font-[500] line-clamp-3 mt-2 md:mt-3 leading-relaxed">
@@ -150,3 +150,4 @@ export default function MovieRow({ title, fetchMovies }) {
     </div>
   )
 }
+
