@@ -1,4 +1,4 @@
-﻿import MovieRow from './MovieRow'
+import MovieRow from './MovieRow'
 import { getTrendingMovies, getMoviesByCategory, getMoviesByLanguage } from './api'
 
 // Define fetch functions outside component to maintain stable references
@@ -16,15 +16,15 @@ const fetchSciFi = () => getMoviesByCategory(878);
 
 function Home() {
   return (
-    //<div className="py-8 w-full 2xl:max-w-[2000px] mx-auto overflow-x-hidden">
-    {/* Hero Section */ }
-    < div className = "w-full mb-12" >
-      <div className="w-full h-[55vh] md:h-[65vh] bg-slate-800 flex items-end p-8 md:p-16 overflow-hidden relative shadow-lg group">
+    <div className="w-full overflow-x-hidden pb-8">
+      {/* Hero Section */}
+      <div className="w-full mb-12">
+      <div className="w-full h-[55vh] md:h-[65vh] bg-slate-800 flex items-end p-8 md:p-16 overflow-hidden relative shadow-lg">
         <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-900/60 to-transparent z-10"></div>
         <img
           src="https://images.unsplash.com/photo-1626814026160-2237a95fc5a0?auto=format&fit=crop&q=80&w=1920&h=1080"
           alt="Featured Trailer Background"
-          className="absolute inset-0 w-full h-full object-cover opacity-50 group-hover:scale-105 transition-transform duration-700"
+          className="absolute inset-0 w-full h-full object-cover opacity-50"
         />
         <div className="relative z-20 w-full md:w-2/3 lg:w-1/2">
           <span className="inline-block px-3 py-1 bg-red-600 text-white text-xs font-bold rounded-full mb-3 shadow-md tracking-wider">
@@ -46,29 +46,16 @@ function Home() {
       </div>
       </div >
 
-    <div className="space-y-4 md:space-y-8">
-      <div id="trending" className="mb-8 md:mb-12">
-        <h2 className="text-2xl md:text-3xl font-bold text-white mb-2 px-4 md:px-6">Global Trending</h2>
-        <MovieRow title="Trending Now" fetchMovies={getTrendingMovies} />
-      </div>
-
-      <div id="indian-cinema" className="mb-8 md:mb-12">
-        <h2 className="text-2xl md:text-3xl font-bold text-red-500 mb-6 px-4 md:px-6 drop-shadow-md">Indian Cinema Hub</h2>
-        <div>
-          <MovieRow title="Tollywood Blockbusters" fetchMovies={fetchTelugu} />
-          <MovieRow title="Bollywood Hits" fetchMovies={fetchHindi} />
-          <MovieRow title="Kollywood Blockbusters" fetchMovies={fetchTamil} />
-          <MovieRow title="Mollywood Cinema" fetchMovies={fetchMalayalam} />
-        </div>
-      </div>
-
-      <div id="explore-genres" className="mb-8 md:mb-12 pt-4">
-        <h2 className="text-2xl md:text-3xl font-bold text-blue-400 mb-6 px-4 md:px-6 drop-shadow-md">Explore Genres</h2>
-        <MovieRow title="Action & Adventure" fetchMovies={fetchAction} />
-        <MovieRow title="Sci-Fi & Fantasy" fetchMovies={fetchSciFi} />
-        <MovieRow title="Comedy Specials" fetchMovies={fetchComedy} />
-        <MovieRow title="Horror Highlights" fetchMovies={fetchHorror} />
-      </div>
+    <div className="space-y-4 md:space-y-8 pb-12 mt-8">
+      <MovieRow title="Global Trending" fetchMovies={getTrendingMovies} />
+      <MovieRow title="Tollywood Blockbusters" fetchMovies={fetchTelugu} />
+      <MovieRow title="Bollywood Hits" fetchMovies={fetchHindi} />
+      <MovieRow title="Kollywood Blockbusters" fetchMovies={fetchTamil} />
+      <MovieRow title="Mollywood Cinema" fetchMovies={fetchMalayalam} />
+      <MovieRow title="Action & Adventure" fetchMovies={fetchAction} />
+      <MovieRow title="Sci-Fi & Fantasy" fetchMovies={fetchSciFi} />
+      <MovieRow title="Comedy Specials" fetchMovies={fetchComedy} />
+      <MovieRow title="Horror Highlights" fetchMovies={fetchHorror} />
     </div>
     </div >
   )

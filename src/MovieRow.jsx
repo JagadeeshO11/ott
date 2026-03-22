@@ -1,4 +1,4 @@
-﻿import { useCallback, useEffect, useState, useRef } from 'react'
+import { useCallback, useEffect, useState, useRef } from 'react'
 import { getImageUrl } from './api'
 import MovieModal from './MovieModal'
 
@@ -41,7 +41,10 @@ export default function MovieRow({ title, fetchMovies }) {
 
   return (
     <div className="mb-8 relative group min-h-[220px]">
-      <h2 className="text-lg md:text-xl lg:text-2xl font-semibold mb-4 text-slate-100 px-4 md:px-6">{title}</h2>
+      <div className="flex justify-between items-end mb-4 px-4 md:px-6">
+        <h2 className="text-lg md:text-xl lg:text-2xl font-semibold text-slate-100">{title}</h2>
+        <button className="text-sm font-bold text-sky-400 hover:text-sky-300 transition-colors">View All &gt;</button>
+      </div>
       
       {/* SKELETON LOADING UI */}
       {loading && (
@@ -135,13 +138,25 @@ export default function MovieRow({ title, fetchMovies }) {
             ))}
           </div>
 
-          <button onClick={scrollPrev} className="absolute left-0 lg:-left-6 top-[40%] md:top-[45%] -translate-y-1/2 bg-black/80 hover:bg-black text-white p-3 md:p-4 rounded-full opacity-0 group-hover/nav:opacity-100 transition-opacity z-30 cursor-pointer hidden md:flex items-center justify-center shadow-xl ring-1 ring-white/10 hover:scale-110">
-            <svg xmlns="http://www.w3.org/w/svg" fill="none" viewBox="0 0 24 24" strokeWidth={3} stroke="currentColor" className="w-6 h-6"><path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" /></svg>
-          </button>
+          {/* Left Arrow Edge Zone */}
+          <div className="absolute top-2 bottom-14 md:bottom-24 left-0 w-12 md:w-16 z-[60] opacity-0 group-hover/nav:opacity-100 transition-opacity duration-300 hidden md:flex text-white">
+            <button 
+              onClick={scrollPrev} 
+              className="h-full w-full bg-black/50 hover:bg-black/80 backdrop-blur-[2px] flex items-center justify-center transition-colors cursor-pointer"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={3} stroke="currentColor" className="w-8 h-8 hover:scale-125 transition-transform"><path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" /></svg>
+            </button>
+          </div>
           
-          <button onClick={scrollNext} className="absolute right-0 lg:-right-6 top-[40%] md:top-[45%] -translate-y-1/2 bg-black/80 hover:bg-black text-white p-3 md:p-4 rounded-full opacity-0 group-hover/nav:opacity-100 transition-opacity z-30 cursor-pointer hidden md:flex items-center justify-center shadow-xl ring-1 ring-white/10 hover:scale-110">
-            <svg xmlns="http://www.w3.org/w/svg" fill="none" viewBox="0 0 24 24" strokeWidth={3} stroke="currentColor" className="w-6 h-6"><path strokeLinecap="round" strokeLinejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" /></svg>
-          </button>
+          {/* Right Arrow Edge Zone */}
+          <div className="absolute top-2 bottom-14 md:bottom-24 right-0 w-12 md:w-16 z-[60] opacity-0 group-hover/nav:opacity-100 transition-opacity duration-300 hidden md:flex text-white">
+            <button 
+              onClick={scrollNext} 
+              className="h-full w-full bg-black/50 hover:bg-black/80 backdrop-blur-[2px] flex items-center justify-center transition-colors cursor-pointer"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={3} stroke="currentColor" className="w-8 h-8 hover:scale-125 transition-transform"><path strokeLinecap="round" strokeLinejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" /></svg>
+            </button>
+          </div>
         </div>
       )}
 
