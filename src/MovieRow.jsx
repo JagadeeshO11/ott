@@ -78,12 +78,12 @@ export default function MovieRow({ title, fetchMovies }) {
           <div 
             ref={scrollContainerRef}
             // Interior padded layout area avoids clipping absolute popouts while seamlessly scrolling past edges
-            className="flex gap-4 pt-2 pb-14 md:pb-24 px-4 md:px-6 overflow-x-auto no-scrollbar snap-x snap-mandatory scroll-smooth"
+            className="flex gap-4 pt-2 pb-14 md:pb-24 px-4 md:px-6 overflow-x-auto overflow-y-visible no-scrollbar snap-x snap-mandatory scroll-smooth"
           >
             {movies.map((movie) => (
               <div 
                 key={movie.id} 
-                className="flex-none w-28 md:w-36 lg:w-44 snap-start cursor-pointer group/card relative"
+                className="flex-none w-28 md:w-36 lg:w-44 snap-start cursor-pointer group/card relative overflow-visible"
                 onClick={() => setSelectedMovie(movie)} // Opens modal
               >
                 {/* 1. Standard Poster (Remains visually static) */}

@@ -12,7 +12,7 @@ function App() {
         <Sidebar />
         <main className="flex-1 pl-0 md:pl-20 min-w-0 py-6">
           <div className="mx-auto max-w-[1600px] px-4 md:px-6">
-            <div className="rounded-[2rem] border border-white/10 bg-white/5 backdrop-blur-3xl shadow-[0_40px_120px_rgba(15,23,42,0.42)] overflow-hidden">
+            <div className="rounded-[2rem] border border-white/10 bg-white/5 backdrop-blur-3xl shadow-[0_40px_120px_rgba(15,23,42,0.42)] overflow-visible">
               <Routes>
                 <Route path="/" element={<Home />} />
               </Routes>
