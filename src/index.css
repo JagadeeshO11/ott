@@ -6,9 +6,12 @@ html {
 
 body {
   margin: 0;
-  background-color: #0f172a; /* Tailwind's slate-900 */
-  color: white;
   min-height: 100vh;
+  color: white;
+  background-color: #050816;
+  background-image: radial-gradient(circle at top, rgba(56,189,248,0.18), transparent 16%),
+    radial-gradient(circle at bottom right, rgba(168,85,247,0.14), transparent 18%),
+    linear-gradient(180deg, #07101d 0%, #050816 100%);
 }
 
 .no-scrollbar::-webkit-scrollbar {

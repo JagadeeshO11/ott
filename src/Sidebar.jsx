@@ -38,13 +38,13 @@ export default function Sidebar() {
 
       {/* Sidebar */}
       <aside 
-        className={`fixed top-0 left-0 h-screen bg-[#0f172a]/95 backdrop-blur-md border-r border-slate-800/50 z-50 flex flex-col transition-all duration-300
+        className={`fixed top-0 left-0 h-screen bg-slate-950/40 backdrop-blur-3xl border-r border-white/10 shadow-[0_0_60px_rgba(15,23,42,0.35)] z-50 flex flex-col transition-all duration-300
           ${isOpen ? 'w-64 translate-x-0' : '-translate-x-full md:translate-x-0 md:w-20'}
         `}
       >
         {/* Toggle Button / Header */}
         <div className={`flex items-center p-6 ${isOpen ? 'justify-between' : 'justify-center'}`}>
-          <Link to="/" className={`text-3xl font-extrabold text-red-600 tracking-tighter transition-opacity ${!isOpen ? 'opacity-0 hidden' : 'opacity-100'}`}>
+          <Link to="/" className={`text-3xl font-extrabold text-sky-300 tracking-tighter transition-opacity ${!isOpen ? 'opacity-0 hidden' : 'opacity-100'}`}>
             OTT
           </Link>
           <button 
