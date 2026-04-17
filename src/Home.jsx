@@ -1,18 +1,17 @@
+import { useEffect, useState } from 'react'
 import MovieRow from './MovieRow'
 import { getTrendingMovies, getMoviesByCategory, getMoviesByLanguage } from './api'
+import { getRecentlyWatched } from './utils/recentlyWatched'
 
-// Define fetch functions outside component to maintain stable references
-// Indian Cinema Languages
-const fetchTelugu = () => getMoviesByLanguage('te');
-const fetchHindi = () => getMoviesByLanguage('hi');
-const fetchTamil = () => getMoviesByLanguage('ta');
-const fetchMalayalam = () => getMoviesByLanguage('ml');
+const fetchTelugu = () => getMoviesByLanguage('te')
+const fetchHindi = () => getMoviesByLanguage('hi')
+const fetchTamil = () => getMoviesByLanguage('ta')
+const fetchMalayalam = () => getMoviesByLanguage('ml')
 
-// Global Genres
-const fetchAction = () => getMoviesByCategory(28);
-const fetchComedy = () => getMoviesByCategory(35);
-const fetchHorror = () => getMoviesByCategory(27);
-const fetchSciFi = () => getMoviesByCategory(878);
+const fetchAction = () => getMoviesByCategory(28)
+const fetchComedy = () => getMoviesByCategory(35)
+const fetchHorror = () => getMoviesByCategory(27)
+const fetchSciFi = () => getMoviesByCategory(878)
 
 function Home() {
   return (

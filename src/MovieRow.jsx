@@ -1,166 +1,143 @@
 import { useCallback, useEffect, useState, useRef } from 'react'
-import { getImageUrl } from './api'
+import MovieCard from './components/MovieCard'
 import MovieModal from './MovieModal'
+import { getWatchlist, toggleWatchlist } from './utils/watchlist'
+import { pushRecentlyWatched } from './utils/recentlyWatched'
 
-export default function MovieRow({ title, fetchMovies }) {
-  const [movies, setMovies] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(false);
-  const [selectedMovie, setSelectedMovie] = useState(null);
-
-  const scrollContainerRef = useRef(null);
+export default function MovieRow({ title, subtitle, fetchMovies, movies: initialMovies }) {
+  const [movies, setMovies] = useState(initialMovies || [])
+  const [loading, setLoading] = useState(!initialMovies)
+  const [error, setError] = useState(false)
+  const [selectedMovie, setSelectedMovie] = useState(null)
+  const [watchlistIds, setWatchlistIds] = useState(() => getWatchlist().map((item) => item.id))
+  const scrollContainerRef = useRef(null)
 
   const scrollPrev = useCallback(() => {
     if (scrollContainerRef.current) {
-      scrollContainerRef.current.scrollBy({ left: -window.innerWidth * 0.7, behavior: 'smooth' });
+      scrollContainerRef.current.scrollBy({ left: -window.innerWidth * 0.7, behavior: 'smooth' })
     }
-  }, []);
+  }, [])
 
   const scrollNext = useCallback(() => {
     if (scrollContainerRef.current) {
-      scrollContainerRef.current.scrollBy({ left: window.innerWidth * 0.7, behavior: 'smooth' });
+      scrollContainerRef.current.scrollBy({ left: window.innerWidth * 0.7, behavior: 'smooth' })
     }
-  }, []);
+  }, [])
 
   const loadMovies = useCallback(async () => {
-    try {
-      setLoading(true);
-      setError(false);
-      const data = await fetchMovies();
-      setMovies(data || []);
-    } catch (err) {
-      setError(true);
-    } finally {
-      setLoading(false);
+    if (initialMovies) {
+      setMovies(initialMovies)
+      setLoading(false)
+      setError(false)
+      return
     }
-  }, [fetchMovies]);
+
+    try {
+      setLoading(true)
+      setError(false)
+      const data = await fetchMovies()
+      setMovies(data || [])
+    } catch (err) {
+      setError(true)
+    } finally {
+      setLoading(false)
+    }
+  }, [fetchMovies, initialMovies])
 
   useEffect(() => {
-    loadMovies();
-  }, [loadMovies]);
+    loadMovies()
+  }, [loadMovies])
+
+  useEffect(() => {
+    setWatchlistIds(getWatchlist().map((item) => item.id))
+  }, [])
+
+  const handleToggleWatchlist = (movie) => {
+    toggleWatchlist(movie)
+    setWatchlistIds(getWatchlist().map((item) => item.id))
+  }
+
+  const handleSelect = (movie) => {
+    pushRecentlyWatched(movie)
+    setSelectedMovie(movie)
+  }
 
   return (
-    <div className="mb-8 relative group min-h-[220px]">
-      <div className="flex justify-between items-end mb-4 px-4 md:px-6">
-        <h2 className="text-lg md:text-xl lg:text-2xl font-semibold text-slate-100">{title}</h2>
-        <button className="text-sm font-bold text-sky-400 hover:text-sky-300 transition-colors">View All &gt;</button>
+    <div className="group relative overflow-visible mb-10">
+      <div className="flex flex-col gap-2 px-4 md:px-6 mb-4 sm:flex-row sm:items-end sm:justify-between">
+        <div>
+          <h2 className="text-2xl md:text-3xl font-semibold text-white">{title}</h2>
+          {subtitle && <p className="text-sm text-slate-400 mt-1 max-w-2xl">{subtitle}</p>}
+        </div>
+        <button className="hidden text-sm font-semibold text-sky-300 transition hover:text-sky-200 md:inline-flex">
+          See all
+        </button>
       </div>
-      
-      {/* SKELETON LOADING UI */}
+
       {loading && (
         <div className="flex gap-4 px-4 md:px-6 overflow-hidden">
           {[...Array(6)].map((_, i) => (
-             <div key={i} className="flex-none w-28 md:w-36 lg:w-44">
-               <div className="aspect-[2/3] rounded-lg bg-slate-800 animate-pulse mb-3 border border-slate-700/50"></div>
-              <div className="h-4 bg-slate-800 animate-pulse rounded w-3/4 mb-1"></div>
-              <div className="h-3 bg-slate-800/50 animate-pulse rounded w-1/2"></div>
+            <div key={i} className="flex-none w-36 md:w-44 lg:w-52">
+              <div className="aspect-[2/3] rounded-[1.75rem] bg-slate-800 animate-pulse mb-3 border border-white/10"></div>
+              <div className="h-3.5 bg-slate-800 animate-pulse rounded-full mb-2"></div>
+              <div className="h-3 bg-slate-800/70 animate-pulse rounded-full w-3/4"></div>
             </div>
           ))}
         </div>
       )}
 
-      {/* ERROR UI */}
       {error && !loading && (
-        <div className="py-8 px-4 flex flex-col items-center justify-center bg-slate-900/50 rounded-xl border border-red-900/30 mx-4 md:mx-2">
-          <p className="text-slate-300 font-medium mb-4">We couldn't load these shows right now.</p>
-          <button 
+        <div className="rounded-3xl border border-red-700/30 bg-slate-950/80 px-6 py-10 text-center text-slate-300 shadow-xl shadow-red-900/10 mx-4 md:mx-6">
+          <p className="mb-4 text-base">Something went wrong while loading this row.</p>
+          <button
+            type="button"
             onClick={loadMovies}
-            className="text-sm bg-red-600 hover:bg-red-700 px-6 py-2 rounded-full font-bold text-white transition-colors"
+            className="inline-flex items-center justify-center rounded-full bg-red-600 px-5 py-2 text-sm font-semibold text-white transition hover:bg-red-500"
           >
-            Try Again
+            Try again
           </button>
         </div>
       )}
 
-      {/* SUCCESS UI */}
       {!loading && !error && movies.length > 0 && (
-        <div className="relative group/nav z-10">
-          <div 
+        <div className="relative">
+          <div
             ref={scrollContainerRef}
-            // Interior padded layout area avoids clipping absolute popouts while seamlessly scrolling past edges
-            className="flex gap-4 pt-2 pb-14 md:pb-24 px-4 md:px-6 overflow-x-auto overflow-y-visible no-scrollbar snap-x snap-mandatory scroll-smooth"
+            className="flex gap-4 overflow-x-auto overflow-y-visible pb-4 px-4 md:px-6 no-scrollbar snap-x snap-mandatory scroll-smooth"
           >
             {movies.map((movie) => (
-              <div 
-                key={movie.id} 
-                className="flex-none w-28 md:w-36 lg:w-44 snap-start cursor-pointer group/card relative overflow-visible"
-                onClick={() => setSelectedMovie(movie)} // Opens modal
-              >
-                {/* 1. Standard Poster (Remains visually static) */}
-                <div className="aspect-[2/3] rounded-md overflow-hidden bg-slate-800 shadow-md transition-opacity duration-300 group-hover/card:opacity-0 relative">
-                  <img 
-                    src={getImageUrl(movie.poster_path)} 
-                    alt={movie.title || movie.name} 
-                    className="w-full h-full object-cover"
-                    loading="lazy"
-                  />
-                </div>
-                
-                <h3 className="text-xs md:text-sm font-medium text-slate-400 truncate px-1 mt-2 opacity-100 group-hover/card:opacity-0 transition-opacity duration-200" title={movie.title || movie.name}>
-                  {movie.title || movie.name}
-                </h3>
-
-                {/* 2. Hotstar/Netflix Popout Hover Card (Massive Popout Scale) */}
-                <div className="absolute top-[40%] left-1/2 -translate-x-1/2 -translate-y-1/2 w-[200%] aspect-square bg-[#0f172a] rounded-xl shadow-[0_25px_65px_rgba(0,0,0,0.95)] opacity-0 invisible group-hover/card:opacity-100 group-hover/card:visible z-[100] flex flex-col overflow-hidden border border-slate-700/50 transition-all duration-300 transform scale-90 group-hover/card:scale-100 delay-[150ms]">
-                  
-                  {/* Backdrop Image Header */}
-                  <div className="relative w-full h-[45%] bg-slate-800 flex-shrink-0">
-                    <img 
-                      src={getImageUrl(movie.backdrop_path || movie.poster_path)} 
-                      className="w-full h-full object-cover" 
-                      alt="Backdrop"
-                      loading="lazy"
-                    />
-                    <div className="absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-[#0f172a] to-transparent"></div>
-                  </div>
-
-                  {/* Content Body */}
-                  <div className="p-3 md:p-4 flex-1 flex flex-col justify-between bg-[#0f172a]">
-                    <div className="flex-1">
-                      <h4 className="text-white font-[700] text-sm md:text-base leading-tight line-clamp-1">{movie.title || movie.name}</h4>
-                      <div className="flex items-center gap-2 mt-1.5 md:mt-2">
-                        <span className="text-emerald-400 text-[10px] md:text-[11px] font-bold bg-white/10 px-1.5 py-0.5 rounded-[4px]">â˜… {movie.vote_average?.toFixed(1) || 0}</span>
-                        <span className="text-slate-400 text-[10px] md:text-[11px] font-semibold">{movie.release_date?.substring(0,4)}</span>
-                      </div>
-                      <p className="text-slate-300/80 text-[10px] md:text-[11px] font-[500] line-clamp-3 mt-2 md:mt-3 leading-relaxed">
-                        {movie.overview || "No description available."}
-                      </p>
-                    </div>
-
-                    <button className="w-full bg-white hover:bg-slate-200 text-slate-900 font-bold py-1.5 md:py-2 rounded-[4px] text-[10px] md:text-sm flex items-center justify-center gap-2 transition-colors mt-2 shadow-[0_0_10px_rgba(255,255,255,0.1)] hover:shadow-[0_0_15px_rgba(255,255,255,0.3)]">
-                      <svg fill="currentColor" viewBox="0 0 24 24" className="w-3 md:w-3.5 h-3 md:h-3.5"><path d="M4.5 5.653c0-1.426 1.529-2.33 2.779-1.643l11.54 6.348c1.295.712 1.295 2.573 0 3.285L7.28 19.991c-1.25.687-2.779-.217-2.779-1.643V5.653z" /></svg>
-                      Watch Trailer
-                    </button>
-                  </div>
-                </div>
-
+              <div key={movie.id} className="relative flex-none w-44 md:w-52 lg:w-60 snap-start overflow-visible">
+                <MovieCard
+                  movie={movie}
+                  onSelect={handleSelect}
+                  isInWatchlist={watchlistIds.includes(movie.id)}
+                  onToggleWatchlist={handleToggleWatchlist}
+                />
               </div>
             ))}
           </div>
 
-          {/* Left Arrow Edge Zone */}
-          <div className="absolute top-2 bottom-14 md:bottom-24 left-0 w-12 md:w-16 z-[60] opacity-0 group-hover/nav:opacity-100 transition-opacity duration-300 hidden md:flex text-white">
-            <button 
-              onClick={scrollPrev} 
-              className="h-full w-full bg-black/50 hover:bg-black/80 backdrop-blur-[2px] flex items-center justify-center transition-colors cursor-pointer"
+          <div className="absolute inset-y-0 left-0 hidden items-center md:flex">
+            <button
+              type="button"
+              onClick={scrollPrev}
+              className="flex h-14 w-14 items-center justify-center rounded-full bg-slate-950/80 text-white shadow-lg shadow-black/20 transition hover:bg-slate-900"
             >
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={3} stroke="currentColor" className="w-8 h-8 hover:scale-125 transition-transform"><path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" /></svg>
+              <span className="text-xl">‹</span>
             </button>
           </div>
-          
-          {/* Right Arrow Edge Zone */}
-          <div className="absolute top-2 bottom-14 md:bottom-24 right-0 w-12 md:w-16 z-[60] opacity-0 group-hover/nav:opacity-100 transition-opacity duration-300 hidden md:flex text-white">
-            <button 
-              onClick={scrollNext} 
-              className="h-full w-full bg-black/50 hover:bg-black/80 backdrop-blur-[2px] flex items-center justify-center transition-colors cursor-pointer"
+          <div className="absolute inset-y-0 right-0 hidden items-center md:flex">
+            <button
+              type="button"
+              onClick={scrollNext}
+              className="flex h-14 w-14 items-center justify-center rounded-full bg-slate-950/80 text-white shadow-lg shadow-black/20 transition hover:bg-slate-900"
             >
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={3} stroke="currentColor" className="w-8 h-8 hover:scale-125 transition-transform"><path strokeLinecap="round" strokeLinejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" /></svg>
+              <span className="text-xl">›</span>
             </button>
           </div>
         </div>
       )}
 
-      {/* MODAL POPUP */}
       {selectedMovie && <MovieModal movie={selectedMovie} allMovies={movies} onClose={() => setSelectedMovie(null)} />}
     </div>
   )

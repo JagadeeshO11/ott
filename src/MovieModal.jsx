@@ -2,9 +2,17 @@ import { useEffect, useState } from 'react'
 import { getMovieProviders } from './api'
 import MovieRow from './MovieRow'
 import { getRecommendedLocalMovies } from './recommendations'
+import { isInWatchlist, toggleWatchlist } from './utils/watchlist'
 
 export default function MovieModal({ movie, allMovies = [], onClose }) {
   const [providers, setProviders] = useState(null);
+  const [saved, setSaved] = useState(false);
+
+  useEffect(() => {
+    if (movie?.id) {
+      setSaved(isInWatchlist(movie.id))
+    }
+  }, [movie])
 
   // Prevent body scroll when modal is open
   useEffect(() => {
@@ -102,11 +110,23 @@ export default function MovieModal({ movie, allMovies = [], onClose }) {
             </div>
           )}
           
-          <button className="bg-white hover:bg-slate-200 text-black font-bold py-2 md:py-3 px-8 rounded-lg transition-colors cursor-pointer flex items-center gap-2">
-            <svg xmlns="http://www.w3.org/w/svg" viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5"><path fillRule="evenodd" d="M4.5 5.653c0-1.426 1.529-2.33 2.779-1.643l11.54 6.348c1.295.712 1.295 2.573 0 3.285L7.28 19.991c-1.25.687-2.779-.217-2.779-1.643V5.653z" clipRule="evenodd" /></svg>
-            Play Now
-          </button>
-          
+          <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
+            <button className="inline-flex items-center gap-2 rounded-full bg-white px-6 py-3 text-sm font-bold text-slate-950 transition hover:bg-slate-200">
+              <svg xmlns="http://www.w3.org/w/svg" viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5"><path fillRule="evenodd" d="M4.5 5.653c0-1.426 1.529-2.33 2.779-1.643l11.54 6.348c1.295.712 1.295 2.573 0 3.285L7.28 19.991c-1.25.687-2.779-.217-2.779-1.643V5.653z" clipRule="evenodd" /></svg>
+              Play Now
+            </button>
+            <button
+              type="button"
+              onClick={() => {
+                toggleWatchlist(movie)
+                setSaved(!saved)
+              }}
+              className="inline-flex items-center justify-center rounded-full border border-white/10 bg-slate-900/80 px-6 py-3 text-sm font-semibold text-white transition hover:bg-slate-800"
+            >
+              {saved ? 'Saved to Watchlist' : 'Add to Watchlist'}
+            </button>
+          </div>
+
           {recommendedMovies.length > 0 && (
             <div className="mt-12 pt-6 border-t border-slate-800/80 -mx-4 md:-mx-8">
               <MovieRow 

@@ -1,26 +1,32 @@
 import { useState, useEffect } from 'react'
 import { searchMovies, getImageUrl } from './api'
+import { useDebounce } from './hooks/useDebounce'
 import MovieModal from './MovieModal'
 
 export default function Navbar() {
   const [query, setQuery] = useState('')
   const [results, setResults] = useState([])
   const [selectedMovie, setSelectedMovie] = useState(null)
+  const debouncedQuery = useDebounce(query, 400)
 
   useEffect(() => {
-    if (query.trim().length < 2) {
-      setResults([]);
-      return;
+    if (debouncedQuery.trim().length < 2) {
+      setResults([])
+      return
     }
-    const delay = setTimeout(async () => {
+
+    const search = async () => {
       try {
-        const data = await searchMovies(query);
-        setResults(data ? data.slice(0, 5) : []); 
+        const data = await searchMovies(debouncedQuery)
+        setResults(data ? data.slice(0, 5) : [])
       } catch (e) {
+        console.error(e)
+        setResults([])
       }
-    }, 400); 
-    return () => clearTimeout(delay);
-  }, [query]);
+    }
+
+    search()
+  }, [debouncedQuery])
 
   return (
     <>
