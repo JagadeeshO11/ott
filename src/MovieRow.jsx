@@ -92,10 +92,11 @@ export default function MovieRow({ title, subtitle, fetchMovies, movies: initial
         <div className="relative overflow-visible">
           <div
             ref={scrollContainerRef}
-            className="flex gap-6 overflow-x-auto overflow-y-visible py-12 px-4 md:px-6 no-scrollbar snap-x snap-mandatory scroll-smooth"
+            className="flex gap-8 overflow-x-auto overflow-y-visible py-16 no-scrollbar snap-x snap-mandatory scroll-smooth scroll-padding-x-0"
+            style={{ scrollPaddingLeft: '0px' }}
           >
             {movies.map((movie) => (
-              <div key={movie.id} className="relative flex-none w-44 md:w-52 lg:w-60 snap-start overflow-visible">
+              <div key={movie.id} className="relative flex-none w-48 md:w-56 lg:w-64 snap-start overflow-visible">
                 <MovieCard
                   movie={movie}
                   onSelect={handleSelect}

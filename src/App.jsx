@@ -20,9 +20,14 @@ function App() {
       </div>
 
       <div className="relative flex min-h-screen z-10">
-        <Sidebar />
-        <main className="flex-1 pl-0 md:pl-24 lg:pl-32 min-w-0 py-10">
-          <div className="mx-auto max-w-[1700px] px-6 md:px-10">
+        {/* Sidebar Column - Persistent Rail */}
+        <div className="hidden md:block w-[110px] flex-shrink-0">
+          <Sidebar />
+        </div>
+
+        {/* Main Content Column - Flexible & Constrained */}
+        <main className="flex-1 min-w-0 py-12 px-6 md:px-12 lg:px-16">
+          <div className="mx-auto max-w-[1800px]">
             <div className="bg-transparent overflow-visible">
               <Routes>
                 <Route path="/" element={<Home />} />

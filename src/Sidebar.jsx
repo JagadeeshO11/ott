@@ -38,15 +38,17 @@ export default function Sidebar() {
         </button>
       )}
 
-      {/* High-Fidelity Docked Navigation Rail */}
+      {/* Fixed High-Fidelity Navigation Rail */}
       <aside 
-        className="fixed top-6 left-6 bottom-6 w-[100px] glass-panel smokey-edge z-50 flex flex-col items-center py-10 rounded-[2.5rem] gpu-accelerated light-sweep"
+        className="fixed top-8 left-8 bottom-8 w-[110px] glass-panel smokey-edge z-50 flex flex-col items-center py-12 rounded-[3rem] gpu-accelerated light-sweep"
       >
-        {/* Branding - Optical Centering */}
-        <div className="mb-16">
-          <div className="h-14 w-14 bg-gradient-to-br from-sky-400 to-indigo-600 rounded-[1.25rem] flex items-center justify-center shadow-xl shadow-sky-500/10 ring-1 ring-white/10 transition-transform duration-500 hover:scale-105 active:scale-95">
+        {/* Optical Branding */}
+        <div className="mb-20">
+          <Link to="/" className="group block h-14 w-14 bg-gradient-to-br from-sky-400 to-indigo-600 rounded-[1.5rem] flex items-center justify-center shadow-2xl shadow-sky-500/20 ring-1 ring-white/10 transition-all duration-500 hover:scale-110 active:scale-95">
              <span className="text-[10px] font-black text-white tracking-widest">OTT</span>
-          </div>
+             {/* Luminous Glow Pulse */}
+             <div className="absolute inset-0 bg-sky-400/20 blur-2xl rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+          </Link>
         </div>
 
         {/* Strict Grid Navigation */}
