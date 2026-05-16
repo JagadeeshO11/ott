@@ -1,39 +1,29 @@
+// Updated API functions with pagination support
+
 const API_KEY = import.meta.env.VITE_APP_TOKEN;
 const BASE_URL = "https://api.themoviedb.org/3";
 const IMAGE_BASE_URL = 'https://image.tmdb.org/t/p/w500';
-
-console.log("DEBUG API_KEY Loaded:", API_KEY ? "Yes" : "No");
 
 export const getImageUrl = (path) => {
   return path ? `${IMAGE_BASE_URL}${path}` : 'https://via.placeholder.com/500x750?text=No+Image';
 };
 
 /**
- * Official TMDB Fetch Architecture
- * Supports both v3 API Key (query parameter) and v4 Access Token (Bearer Header) flawlessly.
+ * TMDB fetch utility with caching and optional pagination.
  */
-export const fetchFromTMDB = async (endpoint, params = {}) => {
+export const fetchFromTMDB = async (endpoint, params = {}, page = 1) => {
   try {
-    // 1. Properly construct URL to avoid query string malformations (? &)
     const url = new URL(`${BASE_URL}${endpoint}`);
-    
     url.searchParams.append('language', 'en-US');
-    
-    // If it's a short v3 standard API key, append to URL. 
-    // TMDB v4 Bearer tokens are usually > 100 characters.
     const isV4Token = API_KEY && API_KEY.length > 50;
-    if (!isV4Token) {
-      url.searchParams.append('api_key', API_KEY);
-    }
-    
-    // Safely append custom params like with_genres
+    if (!isV4Token) url.searchParams.append('api_key', API_KEY);
+    // Append pagination if applicable
+    if (page && page > 1) url.searchParams.append('page', page);
     Object.keys(params).forEach(key => url.searchParams.append(key, params[key]));
 
-    // Check Cache (Valid for 24 hours)
     const urlString = url.toString();
     const cacheKey = `tmdb_${urlString}`;
     const cachedItem = localStorage.getItem(cacheKey);
-    
     if (cachedItem) {
       try {
         const { timestamp, data } = JSON.parse(cachedItem);
@@ -42,12 +32,9 @@ export const fetchFromTMDB = async (endpoint, params = {}) => {
           console.log("Serving from cache:", endpoint);
           return data;
         }
-      } catch (e) {
-        console.error("Cache parsing error", e);
-      }
+      } catch (e) { console.error("Cache parsing error", e); }
     }
 
-    // 2. Official TMDB Headers setup
     const options = {
       method: 'GET',
       headers: {
@@ -55,47 +42,31 @@ export const fetchFromTMDB = async (endpoint, params = {}) => {
         ...(isV4Token ? { Authorization: `Bearer ${API_KEY}` } : {})
       }
     };
-
     const res = await fetch(urlString, options);
-    
-    if (!res.ok) {
-      throw new Error(`TMDB API Error: ${res.status}`);
-    }
-
+    if (!res.ok) throw new Error(`TMDB API Error: ${res.status}`);
     const data = await res.json();
     const returnData = data.results !== undefined ? data.results : data;
-    
-    // Save to Cache
-    try {
-      localStorage.setItem(cacheKey, JSON.stringify({
-        timestamp: Date.now(),
-        data: returnData
-      }));
-    } catch (e) {
-      console.warn("LocalStorage full or disabled", e);
-    }
-
+    try { localStorage.setItem(cacheKey, JSON.stringify({ timestamp: Date.now(), data: returnData })); }
+    catch (e) { console.warn('LocalStorage full or disabled', e); }
     return returnData;
   } catch (err) {
-    console.error("Fetch Error:", err);
+    console.error('Fetch Error:', err);
     throw err;
   }
 };
 
-// Clean API routes built using the official fetcher
-export const getTrendingMovies = () => fetchFromTMDB('/trending/movie/week');
+export const getTrendingMovies = (page = 1) => fetchFromTMDB('/trending/movie/week', {}, page);
 
-export const getMoviesByCategory = async (genreId) => {
-  const movies = await fetchFromTMDB('/discover/movie', { with_genres: genreId });
-  // local sort by year/date descending (newest first)
+export const getMoviesByCategory = async (genreId, page = 1) => {
+  const movies = await fetchFromTMDB('/discover/movie', { with_genres: genreId }, page);
   return movies?.sort((a, b) => new Date(b.release_date || 0) - new Date(a.release_date || 0));
 };
 
-export const getMoviesByLanguage = async (lang) => {
-  const movies = await fetchFromTMDB('/discover/movie', { with_original_language: lang, sort_by: 'popularity.desc' });
-  // local sort by year/date descending (newest first)
+export const getMoviesByLanguage = async (lang, page = 1) => {
+  const movies = await fetchFromTMDB('/discover/movie', { with_original_language: lang, sort_by: 'popularity.desc' }, page);
   return movies?.sort((a, b) => new Date(b.release_date || 0) - new Date(a.release_date || 0));
 };
 
-export const searchMovies = (query) => fetchFromTMDB('/search/movie', { query, include_adult: false });
+export const searchMovies = (query, page = 1) => fetchFromTMDB('/search/movie', { query, include_adult: false }, page);
+
 export const getMovieProviders = (movieId) => fetchFromTMDB(`/movie/${movieId}/watch/providers`);

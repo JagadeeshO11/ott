@@ -62,6 +62,8 @@ export default function MovieRow({ title, subtitle, fetchMovies, movies: initial
     setSelectedMovie(movie)
   }
 
+  if (error && !loading) return null;
+
   return (
     <div className="group relative overflow-visible mb-10">
       <div className="flex flex-col gap-2 px-4 md:px-6 mb-4 sm:flex-row sm:items-end sm:justify-between">
@@ -83,19 +85,6 @@ export default function MovieRow({ title, subtitle, fetchMovies, movies: initial
               <div className="h-3 bg-slate-800/70 animate-pulse rounded-full w-3/4"></div>
             </div>
           ))}
-        </div>
-      )}
-
-      {error && !loading && (
-        <div className="rounded-3xl border border-red-700/30 bg-slate-950/80 px-6 py-10 text-center text-slate-300 shadow-xl shadow-red-900/10 mx-4 md:mx-6">
-          <p className="mb-4 text-base">Something went wrong while loading this row.</p>
-          <button
-            type="button"
-            onClick={loadMovies}
-            className="inline-flex items-center justify-center rounded-full bg-red-600 px-5 py-2 text-sm font-semibold text-white transition hover:bg-red-500"
-          >
-            Try again
-          </button>
         </div>
       )}
 

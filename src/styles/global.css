@@ -1,0 +1,43 @@
+/* src/styles/global.css */
+@import "./variables.css";
+@import "./components.css";
+
+/* Base reset and typography */
+* {margin: 0; padding: 0; box-sizing: border-box;}
+html {font-size: 16px; scroll-behavior: smooth;}
+body {
+  font-family: 'Inter', system-ui, sans-serif;
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Dark mode – colors defined in variables.css */
+:root {
+  --color-primary: hsl(210, 80%, 55%);
+  --color-bg: hsl(220, 25%, 10%);
+  --color-surface: hsl(220, 25%, 14%);
+  --color-text: hsl(210, 20%, 92%);
+  --color-muted: hsl(210, 15%, 40%);
+  --color-accent: hsl(280, 70%, 65%);
+}
+
+/* Utility classes */
+.container {
+  max-width: 1600px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+.rounded-xl {border-radius: 1.5rem;}
+.shadow-glass {background: var(--color-surface); backdrop-filter: blur(12px); box-shadow: 0 4px 30px rgba(0,0,0,0.12);}
+
+/* Micro‑animations */
+@keyframes fadeIn {
+  from {opacity: 0; transform: translateY(10px);}
+  to {opacity: 1; transform: translateY(0);}
+}
+.animate-fade {animation: fadeIn 0.5s ease-out forwards;}
+
+/* Hover effects */
+.hover-up:hover {transform: translateY(-4px); transition: transform 0.2s;}

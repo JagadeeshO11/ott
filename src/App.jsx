@@ -1,6 +1,8 @@
 import { Routes, Route } from 'react-router-dom'
 import Sidebar from './Sidebar'
 import Home from './Home'
+import PlayerPage from './components/PlayerPage'
+import CatalogGrid from './components/CatalogGrid'
 
 function App() {
   return (
@@ -15,6 +17,8 @@ function App() {
             <div className="rounded-[2rem] border border-white/10 bg-white/5 backdrop-blur-3xl shadow-[0_40px_120px_rgba(15,23,42,0.42)] overflow-visible">
               <Routes>
                 <Route path="/" element={<Home />} />
+                <Route path="/player/:id" element={<PlayerPage />} />
+                <Route path="/category/:genreId" element={<CatalogGrid />} />
               </Routes>
             </div>
           </div>

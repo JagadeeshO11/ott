@@ -1,0 +1,29 @@
+/* src/styles/variables.css */
+/* Color palette */
+:root {
+  --color-primary: hsl(210, 80%, 55%);
+  --color-primary-hover: hsl(210, 80%, 45%);
+  --color-background: hsl(210, 20%, 5%);
+  --color-surface: hsl(210, 25%, 10%);
+  --color-text: hsl(0, 0%, 95%);
+  --color-muted: hsl(210, 15%, 30%);
+  --color-accent: hsl(340, 70%, 60%);
+}
+
+/* Font */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+body {
+  font-family: 'Inter', system-ui, sans-serif;
+  color: var(--color-text);
+  background-color: var(--color-background);
+}
+
+/* Spacing tokens */
+:root {
+  --spacing-1: 0.25rem;
+  --spacing-2: 0.5rem;
+  --spacing-3: 0.75rem;
+  --spacing-4: 1rem;
+  --spacing-5: 1.5rem;
+  --spacing-6: 2rem;
+}
