@@ -7,18 +7,18 @@ export default function MovieCard({ movie, onSelect, isInWatchlist, onToggleWatc
       tabIndex={0}
       onClick={() => onSelect(movie)}
       onKeyDown={(event) => event.key === 'Enter' && onSelect(movie)}
-      className="group relative min-w-[180px] max-w-[220px] overflow-visible rounded-[1.75rem] border border-white/10 bg-slate-950/70 shadow-[0_30px_70px_rgba(0,0,0,0.3)] backdrop-blur-xl transition duration-300 hover:-translate-y-1 hover:scale-[1.02] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-400"
+      className="group relative min-w-[180px] max-w-[220px] overflow-visible rounded-md shadow-lg transition duration-300 hover:-translate-y-2 hover:scale-105 hover:z-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-400 cursor-pointer"
     >
-      <div className="overflow-hidden rounded-[1.75rem]">
+      <div className="overflow-hidden rounded-md bg-slate-900">
         <img
           src={getImageUrl(movie.poster_path)}
           alt={movie.title || movie.name}
           loading="lazy"
-          className="h-[280px] w-full object-cover transition duration-300 group-hover:scale-105"
+          className="h-[280px] w-full object-cover transition-transform duration-500 group-hover:scale-110"
         />
       </div>
 
-      <div className="absolute inset-x-0 bottom-0 rounded-b-[1.75rem] bg-gradient-to-t from-slate-950/95 to-transparent p-4 opacity-0 transition duration-300 group-hover:opacity-100">
+      <div className="absolute inset-x-0 bottom-0 rounded-b-md bg-gradient-to-t from-slate-950/95 to-transparent p-4 opacity-0 transition duration-300 group-hover:opacity-100">
         <div className="flex items-start justify-between gap-2">
           <div>
             <p className="text-xs uppercase tracking-[0.22em] text-sky-300/90">Watch now</p>

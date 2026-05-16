@@ -11,9 +11,11 @@ export default function Sidebar() {
 
   const menuItems = [
     { name: 'Home', icon: <AiFillHome size={24} />, path: '/' },
-    { name: 'Movies', icon: <MdMovie size={24} />, path: '#indian-cinema' },
-    { name: 'Trending', icon: <FaFire size={24} />, path: '#trending' },
-    { name: 'Watchlist', icon: <FaBookmark size={24} />, path: '/' },
+    { name: 'Action', icon: <FaFire size={24} />, path: '/category/28' },
+    { name: 'Comedy', icon: <MdMovie size={24} />, path: '/category/35' },
+    { name: 'Horror', icon: <FaBookmark size={24} />, path: '/category/27' },
+    { name: 'Sci-Fi', icon: <FaFire size={24} />, path: '/category/878' },
+    { name: 'Romance', icon: <MdMovie size={24} />, path: '/category/10749' },
   ];
 
   return (

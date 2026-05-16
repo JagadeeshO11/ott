@@ -1,5 +1,6 @@
 import { Routes, Route } from 'react-router-dom'
 import Sidebar from './Sidebar'
+import Navbar from './Navbar'
 import Home from './Home'
 import PlayerPage from './components/PlayerPage'
 import CatalogGrid from './components/CatalogGrid'
@@ -10,7 +11,9 @@ function App() {
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_right,_rgba(56,189,248,0.18),transparent_18%),radial-gradient(circle_at_bottom_left,_rgba(168,85,247,0.14),transparent_22%)]" />
       <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgba(15,23,42,0.88),rgba(15,23,42,0.96))]" />
 
-      <div className="relative flex min-h-screen">
+      <Navbar />
+
+      <div className="relative flex min-h-screen pt-20">
         <Sidebar />
         <main className="flex-1 pl-0 md:pl-20 min-w-0 py-6">
           <div className="mx-auto max-w-[1600px] px-4 md:px-6">
