@@ -15,7 +15,9 @@ export const getImageUrl = (path, size = 'w500') => {
  */
 export const fetchFromTMDB = async (endpoint, params = {}, page = 1) => {
   try {
-    const url = new URL(`${window.location.origin}${IS_PROD ? '' : ''}${BASE_URL}${endpoint}`);
+    const url = IS_PROD 
+      ? new URL(`${window.location.origin}${BASE_URL}${endpoint}`)
+      : new URL(`${BASE_URL}${endpoint}`);
     url.searchParams.append('language', 'en-US');
     
     const isV4Token = API_KEY && API_KEY.length > 50;
