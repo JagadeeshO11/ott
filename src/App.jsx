@@ -20,13 +20,13 @@ function App() {
       </div>
 
       <div className="relative flex min-h-screen z-10">
-        {/* Sidebar Column - Persistent Rail */}
-        <div className="hidden md:block w-[110px] flex-shrink-0">
+        {/* Desktop Sidebar Column - Persistent Rail */}
+        <div className="hidden md:block w-[120px] flex-shrink-0">
           <Sidebar />
         </div>
 
         {/* Main Content Column - Flexible & Constrained */}
-        <main className="flex-1 min-w-0 py-12 px-6 md:px-12 lg:px-16">
+        <main className="flex-1 min-w-0 py-8 md:py-12 px-4 md:px-12 lg:px-16 pb-24 md:pb-12">
           <div className="mx-auto max-w-[1800px]">
             <div className="bg-transparent overflow-visible">
               <Routes>
@@ -38,6 +38,16 @@ function App() {
           </div>
         </main>
       </div>
+
+      {/* Mobile Bottom Navigation - AAA Style */}
+      <nav className="md:hidden fixed bottom-6 left-6 right-6 h-20 glass-panel z-[100] flex items-center justify-around px-6 rounded-[2rem] shadow-2xl shadow-black/50 border border-white/10">
+        <Link to="/" className="text-2xl text-sky-400 drop-shadow-[0_0_10px_rgba(56,189,248,0.5)]">🏠</Link>
+        <Link to="/search" className="text-2xl text-slate-400">🔍</Link>
+        <Link to="/watchlist" className="text-2xl text-slate-400">❤️</Link>
+        <Link to="/profile" className="w-10 h-10 rounded-full border border-white/20 p-[1px]">
+          <img src="https://ui-avatars.com/api/?name=User&size=40" alt="User" className="rounded-full" />
+        </Link>
+      </nav>
     </div>
   )
 }

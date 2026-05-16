@@ -66,12 +66,11 @@ export default function MovieRow({ title, subtitle, fetchMovies, movies: initial
 
   return (
     <div className="group relative overflow-visible mb-10">
-      <div className="flex flex-col gap-2 px-4 md:px-6 mb-4 sm:flex-row sm:items-end sm:justify-between">
-        <div>
-          <h2 className="text-2xl md:text-3xl font-semibold text-white">{title}</h2>
-          {subtitle && <p className="text-sm text-slate-400 mt-1 max-w-2xl">{subtitle}</p>}
-        </div>
-        <button className="hidden text-sm font-semibold text-sky-300 transition hover:text-sky-200 md:inline-flex">
+      <div className="flex items-center justify-between px-4 md:px-6 mb-2">
+        <h2 className="text-xl md:text-3xl lg:text-4xl font-black text-white tracking-tighter chromatic-aberration">
+          {title}
+        </h2>
+        <button className="px-4 py-1.5 md:px-6 md:py-2 rounded-full bg-white/5 border border-white/10 text-[9px] md:text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 hover:text-white hover:bg-sky-500/20 hover:border-sky-500/30 transition-all duration-500">
           See all
         </button>
       </div>
@@ -92,11 +91,11 @@ export default function MovieRow({ title, subtitle, fetchMovies, movies: initial
         <div className="relative overflow-visible">
           <div
             ref={scrollContainerRef}
-            className="flex gap-8 overflow-x-auto overflow-y-visible py-16 no-scrollbar snap-x snap-mandatory scroll-smooth scroll-padding-x-0"
+            className="flex gap-4 md:gap-8 overflow-x-auto overflow-y-visible py-12 md:py-16 no-scrollbar snap-x snap-mandatory scroll-smooth scroll-padding-x-0"
             style={{ scrollPaddingLeft: '0px' }}
           >
             {movies.map((movie) => (
-              <div key={movie.id} className="relative flex-none w-48 md:w-56 lg:w-64 snap-start overflow-visible">
+              <div key={movie.id} className="relative flex-none w-40 md:w-56 lg:w-64 snap-start overflow-visible">
                 <MovieCard
                   movie={movie}
                   onSelect={handleSelect}
