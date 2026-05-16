@@ -32,64 +32,60 @@ body {
 .rounded-xl {border-radius: 1.5rem;}
 .shadow-glass {background: var(--color-surface); backdrop-filter: blur(12px); box-shadow: 0 4px 30px rgba(0,0,0,0.12);}
 
-/* Production-Grade Interaction Design System */
-:root {
-  --spacing-unit: 8px;
-  --transition-cinematic: all 0.7s cubic-bezier(0.2, 0.8, 0.2, 1);
-  --transition-spring: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-}
-
+/* Next-Gen Cinematic Rendering System */
 .smokey-edge {
-  mask-image: linear-gradient(to right, rgba(0,0,0,1) 90%, rgba(0,0,0,0) 100%);
-  -webkit-mask-image: linear-gradient(to right, rgba(0,0,0,1) 90%, rgba(0,0,0,0) 100%);
+  mask-image: linear-gradient(to right, rgba(0,0,0,1) 92%, rgba(0,0,0,0) 100%);
+  -webkit-mask-image: linear-gradient(to right, rgba(0,0,0,1) 92%, rgba(0,0,0,0) 100%);
 }
 
 .glass-panel {
-  background: linear-gradient(135deg, rgba(8, 17, 32, 0.6), rgba(5, 8, 22, 0.8));
-  backdrop-filter: blur(40px) saturate(200%);
-  border: 1px solid rgba(255, 255, 255, 0.05);
-  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.03), 0 20px 50px rgba(0, 0, 0, 0.6);
+  background: linear-gradient(165deg, rgba(8, 17, 32, 0.5), rgba(5, 8, 22, 0.85));
+  backdrop-filter: blur(50px) saturate(220%);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 
+    inset 0 0 20px rgba(255, 255, 255, 0.02),
+    0 25px 60px rgba(0, 0, 0, 0.8);
 }
 
 .gpu-accelerated {
-  will-change: transform, opacity;
+  will-change: transform, opacity, filter;
   transform: translateZ(0);
-  backface-visibility: hidden;
 }
 
 .hover-elevation {
-  transition: var(--transition-cinematic);
+  transition: all 0.8s var(--transition-cinematic);
 }
 .hover-elevation:hover {
-  transform: translateY(-8px) translateZ(50px);
-  z-index: 100;
+  transform: translateY(-12px) translateZ(60px);
+  filter: brightness(1.15) contrast(1.05);
 }
 
 .active-capsule {
   position: relative;
-  background: rgba(56, 189, 248, 0.1);
-  box-shadow: 0 0 20px rgba(56, 189, 248, 0.2);
+  background: rgba(56, 189, 248, 0.12);
+  box-shadow: 0 0 30px rgba(56, 189, 248, 0.25);
 }
 .active-capsule::before {
   content: "";
   position: absolute;
-  left: 0;
-  top: 20%;
-  height: 60%;
+  left: -2px;
+  top: 15%;
+  height: 70%;
   width: 4px;
   background: #38bdf8;
-  border-radius: 0 4px 4px 0;
-  box-shadow: 0 0 15px #38bdf8;
+  border-radius: 0 10px 10px 0;
+  box-shadow: 0 0 20px #38bdf8, 0 0 40px rgba(56, 189, 248, 0.5);
 }
 
-@keyframes light-bloom {
-  0%, 100% { opacity: 0.4; }
-  50% { opacity: 0.8; }
+@keyframes slow-drift {
+  0% { transform: translate(0, 0) scale(1); }
+  100% { transform: translate(2%, 2%) scale(1.05); }
 }
 
-.animate-bloom {
-  animation: light-bloom 4s infinite ease-in-out;
+.animate-drift {
+  animation: slow-drift 30s infinite alternate ease-in-out;
 }
+
 
 
 /* Scrollbar */

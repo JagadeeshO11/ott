@@ -38,21 +38,21 @@ export default function Sidebar() {
         </button>
       )}
 
-      {/* Fixed High-Fidelity Navigation Rail */}
+      {/* Next-Gen Floating Navigation Rail */}
       <aside 
-        className="fixed top-8 left-8 bottom-8 w-[110px] glass-panel smokey-edge z-50 flex flex-col items-center py-12 rounded-[3rem] gpu-accelerated light-sweep"
+        className="fixed top-8 left-8 bottom-8 w-[96px] glass-panel smokey-edge z-50 flex flex-col items-center py-12 rounded-[2.5rem] gpu-accelerated light-sweep"
       >
-        {/* Optical Branding */}
-        <div className="mb-20">
-          <Link to="/" className="group block h-14 w-14 bg-gradient-to-br from-sky-400 to-indigo-600 rounded-[1.5rem] flex items-center justify-center shadow-2xl shadow-sky-500/20 ring-1 ring-white/10 transition-all duration-500 hover:scale-110 active:scale-95">
-             <span className="text-[10px] font-black text-white tracking-widest">OTT</span>
-             {/* Luminous Glow Pulse */}
-             <div className="absolute inset-0 bg-sky-400/20 blur-2xl rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+        {/* Optical Branding Module */}
+        <div className="relative mb-20 group">
+          <Link to="/" className="relative h-14 w-14 bg-gradient-to-br from-sky-400 via-sky-500 to-indigo-600 rounded-[1.75rem] flex items-center justify-center shadow-2xl shadow-sky-500/30 ring-1 ring-white/20 transition-all duration-700 group-hover:scale-110 group-hover:rotate-3">
+             <span className="text-[10px] font-black text-white tracking-[0.2em]">OTT</span>
+             {/* Emissive Aura */}
+             <div className="absolute inset-0 bg-sky-400/20 blur-3xl rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
           </Link>
         </div>
 
-        {/* Strict Grid Navigation */}
-        <nav className="flex-1 flex flex-col gap-6 w-full px-3">
+        {/* High-Fidelity Navigation Stack */}
+        <nav className="flex-1 flex flex-col gap-8 w-full px-4">
           {menuItems.map((item, index) => {
             const isActive = location.pathname === item.path;
             return (
@@ -60,15 +60,16 @@ export default function Sidebar() {
                 key={index} 
                 to={item.path}
                 className={`group relative w-full aspect-square rounded-[1.5rem] flex items-center justify-center transition-all duration-500 
-                  ${isActive ? 'active-capsule text-sky-400' : 'text-slate-500 hover:text-slate-200 hover:bg-white/[0.03]'}
+                  ${isActive ? 'active-capsule text-sky-400' : 'text-slate-500 hover:text-white hover:bg-white/[0.05]'}
                 `}
               >
-                <div className={`relative z-10 transition-all duration-500 group-hover:scale-110 ${isActive ? 'drop-shadow-[0_0_8px_rgba(56,189,248,0.6)]' : ''}`}>
+                {/* Magnetic Interaction Layer */}
+                <div className={`relative z-10 transition-all duration-700 group-hover:scale-125 group-active:scale-90 ${isActive ? 'drop-shadow-[0_0_12px_rgba(56,189,248,0.8)]' : ''}`}>
                   <span className="text-2xl">{item.icon}</span>
                 </div>
                 
-                {/* Tooltip on Hover */}
-                <div className="absolute left-[110%] px-4 py-2 bg-slate-900/90 backdrop-blur-xl border border-white/5 rounded-xl text-[10px] font-black uppercase tracking-widest text-white opacity-0 group-hover:opacity-100 translate-x-[-10px] group-hover:translate-x-0 transition-all duration-500 pointer-events-none whitespace-nowrap shadow-2xl">
+                {/* Cinematic Tooltip */}
+                <div className="absolute left-[110%] px-5 py-2.5 bg-[#081120]/95 backdrop-blur-3xl border border-white/10 rounded-[1rem] text-[9px] font-black uppercase tracking-[0.25em] text-white opacity-0 scale-90 translate-x-[-20px] group-hover:opacity-100 group-hover:scale-100 group-hover:translate-x-0 transition-all duration-500 pointer-events-none shadow-2xl ring-1 ring-white/5">
                   {item.name}
                 </div>
               </Link>
@@ -76,14 +77,14 @@ export default function Sidebar() {
           })}
         </nav>
 
-        {/* User Profile - Bottom Alignment */}
-        <div className="mt-auto pt-8 border-t border-white/5 w-full flex flex-col items-center gap-6">
-          <button className="w-12 h-12 rounded-[1.25rem] bg-white/5 flex items-center justify-center text-slate-500 hover:text-white transition-colors">
-            🔍
+        {/* Global Action Tier */}
+        <div className="mt-auto pt-10 border-t border-white/10 w-full flex flex-col items-center gap-8">
+          <button className="group relative w-12 h-12 rounded-[1.25rem] bg-white/[0.03] flex items-center justify-center text-slate-500 hover:text-sky-400 transition-all duration-500 hover:shadow-lg hover:shadow-sky-500/10">
+            <span className="text-xl transition-transform duration-500 group-hover:scale-125">🔍</span>
           </button>
-          <div className="w-12 h-12 rounded-full p-[1px] bg-gradient-to-tr from-sky-400 to-purple-500">
-            <div className="w-full h-full rounded-full bg-slate-950 overflow-hidden ring-2 ring-slate-950">
-              <img src="https://ui-avatars.com/api/?name=User&background=random" alt="User" />
+          <div className="relative w-12 h-12 rounded-full p-[1.5px] bg-gradient-to-tr from-sky-400 via-purple-500 to-indigo-600 animate-pulse-glow">
+            <div className="w-full h-full rounded-full bg-[#050816] overflow-hidden ring-2 ring-[#050816]">
+              <img src="https://ui-avatars.com/api/?name=User&background=random" alt="User" className="transition-transform duration-1000 hover:scale-125" />
             </div>
           </div>
         </div>

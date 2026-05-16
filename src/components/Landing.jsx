@@ -23,43 +23,47 @@ const Landing = () => {
   if (!movie) return <div className="w-full h-[55vh] md:h-[65vh] bg-slate-950 animate-pulse rounded-md sm:smokey-edge" />;
 
   return (
-    <section className="relative w-full h-[65vh] md:h-[75vh] lg:h-[85vh] overflow-hidden rounded-[3rem] bg-transparent shadow-[0_50px_100px_rgba(3,5,8,0.8)] smokey-edge light-sweep">
-      {/* Cinematic Hero Backdrop */}
+    <section className="relative w-full h-[70vh] md:h-[80vh] lg:h-[90vh] overflow-hidden rounded-[3.5rem] bg-[#050816] shadow-[0_60px_120px_rgba(3,5,8,0.9)] light-sweep">
+      {/* Cinematic Hero Environment */}
       <div className="absolute inset-0 overflow-hidden">
         <img 
           src={getImageUrl(movie.backdrop_path || movie.poster_path, 'original')} 
           alt={movie.title || movie.name}
-          className="h-full w-full object-cover object-top brightness-[0.7] contrast-[1.1] transition-transform duration-1000"
+          className="h-full w-full object-cover object-top brightness-[0.75] contrast-[1.15] animate-drift"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#030508] via-[#030508]/40 to-transparent" />
-        <div className="absolute inset-0 bg-gradient-to-r from-[#030508] via-[#030508]/20 to-transparent" />
-        <div className="volumetric-fog opacity-30" />
+        {/* Layered Cinematic Overlays */}
+        <div className="absolute inset-0 bg-gradient-to-t from-[#050816] via-[#050816]/30 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-r from-[#050816] via-[#050816]/10 to-transparent" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_20%,rgba(5,8,22,0.5)_100%)]" />
+        <div className="volumetric-fog opacity-40" />
       </div>
 
-      <div className="relative z-20 flex h-full items-end p-10 md:p-16 lg:p-24 pb-20">
-        <div className="w-full md:w-3/4 lg:w-2/3 xl:w-1/2 p-12 glass-panel rounded-[3.5rem] shadow-2xl hover-z-axis transition-all duration-700">
-          <div className="flex items-center gap-3 mb-6">
-             <span className="inline-flex items-center px-4 py-1.5 text-[10px] font-black uppercase tracking-[0.4em] text-sky-400 bg-sky-500/10 rounded-full ring-1 ring-sky-500/20 bloom-glow">
-              Trending AAA
+      <div className="relative z-20 flex h-full items-end p-12 md:p-20 lg:p-32 pb-24">
+        <div className="w-full md:w-3/4 lg:w-2/3 xl:w-1/2 p-14 glass-panel rounded-[4rem] shadow-2xl hover-z-axis transition-all duration-1000 ease-[var(--transition-cinematic)]">
+          <div className="flex items-center gap-4 mb-8">
+             <span className="inline-flex items-center px-5 py-2 text-[10px] font-black uppercase tracking-[0.5em] text-sky-400 bg-sky-500/10 rounded-full ring-1 ring-sky-400/30 bloom-glow">
+              Premier Cinematic
             </span>
+            <span className="text-slate-500 text-[10px] font-bold tracking-[0.3em]">IMAX® ENHANCED</span>
           </div>
 
-          <h1 className="text-5xl md:text-7xl lg:text-8xl font-black text-white leading-none tracking-tighter chromatic-aberration mb-8 drop-shadow-[0_10px_30px_rgba(0,0,0,0.5)]">
+          <h1 className="text-6xl md:text-8xl lg:text-9xl font-black text-white leading-none tracking-tighter mb-8 drop-shadow-[0_20px_50px_rgba(0,0,0,0.7)] chromatic-aberration">
             {movie.title || movie.name}
           </h1>
           
-          <p className="mb-10 text-lg md:text-xl text-slate-300/90 leading-relaxed font-medium line-clamp-3 md:line-clamp-none max-w-2xl">
+          <p className="mb-12 text-xl md:text-2xl text-slate-300/85 leading-relaxed font-medium line-clamp-3 max-w-3xl drop-shadow-md">
             {movie.overview}
           </p>
 
-          <div className="flex flex-wrap items-center gap-5">
+          <div className="flex flex-wrap items-center gap-6">
             <button 
               onClick={() => navigate(`/player/${movie.id}`)}
-              className="flex items-center gap-4 bg-white text-black px-12 py-6 rounded-[1.5rem] font-black text-sm uppercase tracking-widest hover:bg-sky-400 hover:text-white transition-all shadow-xl shadow-sky-500/10 active:scale-95"
+              className="group relative flex items-center gap-5 bg-white text-black px-14 py-7 rounded-[2rem] font-black text-xs uppercase tracking-[0.2em] hover:bg-sky-400 hover:text-white transition-all duration-500 shadow-2xl active:scale-95"
             >
-              <span>▶</span> Play Now
+              <span className="text-xl transition-transform duration-500 group-hover:scale-125">▶</span> 
+              <span>Start Experience</span>
             </button>
-            <button className="flex items-center gap-4 bg-white/5 border border-white/10 text-white px-12 py-6 rounded-[1.5rem] font-black text-sm uppercase tracking-widest hover:bg-white/10 transition-all active:scale-95">
+            <button className="flex items-center gap-5 bg-white/5 border border-white/10 text-white px-14 py-7 rounded-[2rem] font-black text-xs uppercase tracking-[0.2em] hover:bg-white/15 transition-all duration-500 active:scale-95 backdrop-blur-xl">
               <span>＋</span> Add to Watchlist
             </button>
           </div>

@@ -5,15 +5,15 @@
 :root {
   --color-primary: #0ea5e9;
   --color-secondary: #6366f1;
-  --color-bg: #030508;
-  --color-surface: rgba(15, 23, 42, 0.4);
+  --color-bg: #050816;
+  --color-surface: rgba(8, 17, 32, 0.4);
   --color-text: #f8fafc;
   --color-muted: #64748b;
   --color-accent: #38bdf8;
   --glow-blue: rgba(56, 189, 248, 0.4);
   --glow-purple: rgba(168, 85, 247, 0.3);
-  --nav-width-collapsed: 88px;
-  --nav-width-expanded: 280px;
+  --nav-width: 96px;
+  --transition-cinematic: cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
 /* Font */
