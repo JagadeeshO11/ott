@@ -18,35 +18,37 @@ export default function MovieCard({ movie, onSelect, isInWatchlist, onToggleWatc
         />
       </div>
 
-      <div className="absolute inset-x-0 bottom-0 rounded-b-md bg-gradient-to-t from-slate-950/95 to-transparent p-4 opacity-0 transition duration-300 group-hover:opacity-100">
-        <div className="flex items-start justify-between gap-2">
-          <div>
-            <p className="text-xs uppercase tracking-[0.22em] text-sky-300/90">Watch now</p>
-            <h3 className="mt-2 text-sm font-semibold leading-tight text-white line-clamp-2">
-              {movie.title || movie.name}
-            </h3>
-          </div>
-          <span className="rounded-full bg-slate-800/90 px-2 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-slate-200">
+      <div className="absolute inset-x-0 bottom-0 rounded-b-md bg-gradient-to-t from-[#030508] via-[#030508]/80 to-transparent p-5 opacity-0 transition-all duration-500 group-hover:opacity-100 flex flex-col justify-end gap-3 translate-y-2 group-hover:translate-y-0">
+        <div className="flex items-center justify-between">
+          <h3 className="text-base font-extrabold text-white line-clamp-1 drop-shadow-lg">
+            {movie.title || movie.name}
+          </h3>
+          <span className="flex-shrink-0 rounded bg-white/10 px-1.5 py-0.5 text-[10px] font-bold text-slate-300 backdrop-blur-sm border border-white/5">
             HD
           </span>
         </div>
-        <div className="mt-3 flex items-center justify-between gap-2 text-[12px] text-slate-300">
-          <span className="font-semibold text-emerald-400">★ {(movie.vote_average || 0).toFixed(1)}</span>
+        
+        <div className="flex items-center gap-2 text-xs text-slate-300 font-medium">
+          <span className="text-sky-400 font-bold">★ {(movie.vote_average || 0).toFixed(1)}</span>
+          <span className="opacity-40">•</span>
           <span>{movie.release_date?.slice(0, 4) || movie.first_air_date?.slice(0, 4)}</span>
         </div>
-      </div>
 
-      <button
-        type="button"
-        onClick={(event) => {
-          event.stopPropagation()
-          onToggleWatchlist(movie)
-        }}
-        className="absolute top-4 right-4 z-20 flex h-10 w-10 items-center justify-center rounded-full bg-slate-900/80 text-white shadow-lg transition hover:bg-slate-800"
-        aria-label={isInWatchlist ? 'Remove from watchlist' : 'Add to watchlist'}
-      >
-        <span className="text-xl">{isInWatchlist ? '❤️' : '🤍'}</span>
-      </button>
+        <div className="flex items-center gap-2 mt-1">
+          <button 
+            onClick={(e) => { e.stopPropagation(); onSelect(movie); }}
+            className="flex-1 bg-white text-black py-2 rounded-lg font-bold text-xs hover:bg-sky-400 transition-colors shadow-lg active:scale-95"
+          >
+            Play Now
+          </button>
+          <button 
+            onClick={(e) => { e.stopPropagation(); onToggleWatchlist(movie); }}
+            className={`w-9 h-9 rounded-lg flex items-center justify-center transition-all border border-white/10 backdrop-blur-md ${isInWatchlist ? 'bg-sky-500/20 text-sky-400' : 'bg-white/5 text-white hover:bg-white/10'}`}
+          >
+            {isInWatchlist ? '❤️' : '➕'}
+          </button>
+        </div>
+      </div>
     </div>
   )
 }
