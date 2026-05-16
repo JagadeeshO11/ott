@@ -11,12 +11,10 @@ function App() {
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_top,_rgba(76,29,149,0.25),transparent_60%),radial-gradient(ellipse_at_bottom_left,_rgba(14,165,233,0.2),transparent_60%)]" />
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_center,_rgba(15,23,42,0.5),_rgba(3,5,8,0.95))]" />
 
-      <Navbar />
-
-      <div className="relative flex min-h-screen pt-20 z-10">
+      <div className="relative flex min-h-screen z-10">
         <Sidebar />
-        <main className="flex-1 pl-0 md:pl-20 min-w-0 py-6">
-          <div className="mx-auto max-w-[1600px] px-4 md:px-6">
+        <main className="flex-1 pl-0 md:pl-24 lg:pl-32 min-w-0 py-10">
+          <div className="mx-auto max-w-[1700px] px-6 md:px-10">
             <div className="bg-transparent overflow-visible">
               <Routes>
                 <Route path="/" element={<Home />} />

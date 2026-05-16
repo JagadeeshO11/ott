@@ -89,10 +89,10 @@ export default function MovieRow({ title, subtitle, fetchMovies, movies: initial
       )}
 
       {!loading && !error && movies.length > 0 && (
-        <div className="relative">
+        <div className="relative overflow-visible">
           <div
             ref={scrollContainerRef}
-            className="flex gap-4 overflow-x-auto overflow-y-visible pb-4 px-4 md:px-6 no-scrollbar snap-x snap-mandatory scroll-smooth"
+            className="flex gap-6 overflow-x-auto overflow-y-visible py-12 px-4 md:px-6 no-scrollbar snap-x snap-mandatory scroll-smooth"
           >
             {movies.map((movie) => (
               <div key={movie.id} className="relative flex-none w-44 md:w-52 lg:w-60 snap-start overflow-visible">

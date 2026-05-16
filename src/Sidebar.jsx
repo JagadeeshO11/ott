@@ -40,41 +40,59 @@ export default function Sidebar() {
 
       {/* Sidebar */}
       <aside 
-        className={`fixed top-0 left-0 h-screen bg-slate-950/40 backdrop-blur-3xl shadow-[0_0_60px_rgba(15,23,42,0.35)] z-50 flex flex-col transition-all duration-300
-          ${isOpen ? 'w-64 translate-x-0' : '-translate-x-full md:translate-x-0 md:w-20'}
+        className={`fixed top-0 left-0 h-screen bg-slate-950/20 backdrop-blur-3xl shadow-[40px_0_100px_rgba(3,5,8,0.8)] z-50 flex flex-col transition-all duration-500
+          ${isOpen ? 'w-64 translate-x-0' : '-translate-x-full md:translate-x-0 md:w-24'}
         `}
       >
         {/* Toggle Button / Header */}
-        <div className={`flex items-center p-6 ${isOpen ? 'justify-between' : 'justify-center'}`}>
-          <Link to="/" className={`text-3xl font-extrabold text-sky-300 tracking-tighter transition-opacity ${!isOpen ? 'opacity-0 hidden' : 'opacity-100'}`}>
+        <div className={`flex items-center p-6 mb-8 ${isOpen ? 'justify-between' : 'justify-center'}`}>
+          <div className={`h-12 w-12 bg-gradient-to-br from-sky-500 to-purple-600 rounded-lg flex items-center justify-center smokey-edge shadow-lg ${!isOpen ? '' : 'hidden'}`}>
+             <span className="text-xs font-black text-white">OTT</span>
+          </div>
+          <Link to="/" className={`text-3xl font-black text-white tracking-tighter transition-opacity ${!isOpen ? 'opacity-0 hidden' : 'opacity-100'}`}>
             OTT
           </Link>
           <button 
             onClick={toggleSidebar} 
-            className="text-slate-300 hover:text-white transition-colors"
+            className="text-slate-300 hover:text-white transition-colors p-2 rounded-lg bg-white/5 hover:bg-white/10"
           >
-            <FaBars size={24} />
+            <FaBars size={20} />
           </button>
         </div>
 
+        {/* Search Module */}
+        <div className={`px-4 mb-8 transition-all duration-500 ${isOpen ? 'opacity-100' : 'opacity-0 h-0 overflow-hidden'}`}>
+          <div className="relative group">
+            <input 
+              type="text" 
+              placeholder="Search..."
+              className="w-full bg-white/5 border border-white/10 rounded-xl py-3 pl-10 pr-4 text-sm text-white placeholder-slate-500 focus:outline-none focus:bg-white/10 transition-all smokey-edge"
+            />
+            <span className="absolute left-3 top-3.5 text-slate-500 group-focus-within:text-sky-400 transition-colors">🔍</span>
+          </div>
+        </div>
+
         {/* Menu Items */}
-        <div className="flex-1 flex flex-col gap-2 px-3 mt-4">
+        <div className="flex-1 flex flex-col gap-4 px-4">
           {menuItems.map((item, index) => (
-            <a 
+            <Link 
               key={index} 
-              href={item.path}
-              className="flex items-center p-3 rounded-xl hover:bg-slate-800/50 text-slate-400 hover:text-white transition-colors cursor-pointer group"
+              to={item.path}
+              className="group relative flex items-center p-4 rounded-xl text-slate-400 hover:text-white transition-all duration-500 hover-z-axis smokey-edge bg-white/5 hover:bg-white/10"
               onClick={() => setIsOpen(false)}
             >
-              <div className="shrink-0">{item.icon}</div>
+              <div className="shrink-0 text-xl">{item.icon}</div>
               <span 
-                className={`ml-5 font-semibold text-[15px] whitespace-nowrap transition-all duration-300
+                className={`ml-5 font-bold text-sm tracking-wide transition-all duration-300
                   ${isOpen ? 'opacity-100 w-auto' : 'opacity-0 w-0 overflow-hidden'}
                 `}
               >
                 {item.name}
               </span>
-            </a>
+              
+              {/* Active Indicator */}
+              <div className="absolute left-0 w-1.5 h-6 bg-sky-400 rounded-r-full opacity-0 group-hover:opacity-100 transition-opacity" />
+            </Link>
           ))}
         </div>
       </aside>
