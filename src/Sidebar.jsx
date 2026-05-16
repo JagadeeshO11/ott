@@ -40,58 +40,59 @@ export default function Sidebar() {
 
       {/* Sidebar */}
       <aside 
-        className={`fixed top-0 left-0 h-screen smokey-border z-50 flex flex-col transition-all duration-500
-          ${isOpen ? 'w-64 translate-x-0' : '-translate-x-full md:translate-x-0 md:w-24'}
+        className={`fixed top-0 left-0 h-screen smokey-border smokey-edge z-50 flex flex-col transition-all duration-500
+          ${isOpen ? 'w-72 translate-x-0' : '-translate-x-full md:translate-x-0 md:w-28'}
         `}
       >
         {/* Toggle Button / Header */}
-        <div className={`flex items-center p-6 mb-8 ${isOpen ? 'justify-between' : 'justify-center'}`}>
-          <div className={`h-12 w-12 bg-gradient-to-br from-sky-500 to-purple-600 rounded-lg flex items-center justify-center smokey-edge shadow-lg ${!isOpen ? '' : 'hidden'}`}>
-             <span className="text-xs font-black text-white">OTT</span>
+        <div className={`flex items-center p-8 mb-10 ${isOpen ? 'justify-between' : 'justify-center'}`}>
+          <div className={`h-12 w-12 bg-gradient-to-br from-sky-400 to-purple-500 rounded-lg flex items-center justify-center shadow-lg ${!isOpen ? '' : 'hidden'}`}>
+             <span className="text-[10px] font-black text-white">OTT</span>
           </div>
-          <Link to="/" className={`text-3xl font-black text-white tracking-tighter transition-opacity ${!isOpen ? 'opacity-0 hidden' : 'opacity-100'}`}>
-            OTT
+          <Link to="/" className={`text-4xl font-black text-white tracking-tighter transition-all ${!isOpen ? 'opacity-0 hidden' : 'opacity-100'}`}>
+            OTT<span className="text-sky-400">.</span>
           </Link>
           <button 
             onClick={toggleSidebar} 
-            className="text-slate-300 hover:text-white transition-colors p-2 rounded-lg bg-white/5 hover:bg-white/10"
+            className="text-slate-300 hover:text-white transition-all p-3 rounded-xl bg-white/5 hover:bg-white/10 hover:scale-110 active:scale-95"
           >
             <FaBars size={20} />
           </button>
         </div>
 
         {/* Search Module */}
-        <div className={`px-4 mb-8 transition-all duration-500 ${isOpen ? 'opacity-100' : 'opacity-0 h-0 overflow-hidden'}`}>
+        <div className={`px-6 mb-10 transition-all duration-500 ${isOpen ? 'opacity-100' : 'opacity-0 h-0 overflow-hidden'}`}>
           <div className="relative group">
             <input 
               type="text" 
-              placeholder="Search..."
-              className="w-full smokey-border rounded-xl py-3 pl-10 pr-4 text-sm text-white placeholder-slate-500 focus:outline-none transition-all"
+              placeholder="Search movies..."
+              className="w-full bg-white/5 border border-white/10 rounded-2xl py-4 pl-12 pr-4 text-sm text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-sky-500/30 transition-all"
             />
-            <span className="absolute left-3 top-3.5 text-slate-500 group-focus-within:text-sky-400 transition-colors">🔍</span>
+            <span className="absolute left-4 top-4 text-slate-500 group-focus-within:text-sky-400 transition-colors">🔍</span>
           </div>
         </div>
 
         {/* Menu Items */}
-        <div className="flex-1 flex flex-col gap-4 px-4">
+        <div className="flex-1 flex flex-col gap-5 px-6">
           {menuItems.map((item, index) => (
             <Link 
               key={index} 
               to={item.path}
-              className="group relative flex items-center p-4 rounded-xl text-slate-400 hover:text-white transition-all duration-500 hover-z-axis smokey-edge bg-white/5 hover:bg-white/10"
+              className="group relative flex items-center p-4 rounded-2xl text-slate-300 hover:text-white transition-all duration-500 hover-z-axis bg-white/[0.02] hover:bg-white/[0.08]"
               onClick={() => setIsOpen(false)}
             >
-              <div className="shrink-0 text-xl">{item.icon}</div>
+              <div className="shrink-0 text-2xl group-hover:text-sky-400 transition-colors">{item.icon}</div>
               <span 
-                className={`ml-5 font-bold text-sm tracking-wide transition-all duration-300
+                className={`ml-6 font-bold text-[15px] tracking-wide transition-all duration-300
                   ${isOpen ? 'opacity-100 w-auto' : 'opacity-0 w-0 overflow-hidden'}
                 `}
               >
                 {item.name}
               </span>
               
-              {/* Active Indicator */}
-              <div className="absolute left-0 w-1.5 h-6 bg-sky-400 rounded-r-full opacity-0 group-hover:opacity-100 transition-opacity" />
+              {/* Active Glow Indicator */}
+              <div className="absolute left-[-24px] w-2 h-8 bg-sky-400 rounded-r-full opacity-0 group-hover:opacity-100 transition-all blur-sm" />
+              <div className="absolute left-[-24px] w-1 h-8 bg-sky-400 rounded-r-full opacity-0 group-hover:opacity-100 transition-all" />
             </Link>
           ))}
         </div>
