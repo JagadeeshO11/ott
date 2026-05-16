@@ -32,7 +32,7 @@ const Landing = () => {
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(56,189,248,0.22),transparent_24%),radial-gradient(circle_at_bottom_right,rgba(168,85,247,0.2),transparent_24%)]" />
       <div className="absolute inset-0 bg-gradient-to-t from-[#030508] via-transparent to-transparent" />
       <div className="relative z-20 flex h-full items-end p-6 md:p-12">
-        <div className="w-full md:w-2/3 lg:w-1/2 rounded-md bg-white/5 backdrop-blur-3xl p-8 shadow-2xl smokey-edge hover-z-axis">
+        <div className="w-full md:w-2/3 lg:w-1/2 rounded-md p-8 shadow-2xl smokey-edge smokey-border hover-z-axis">
           <span className="inline-flex items-center px-4 py-2 text-xs font-bold uppercase tracking-[0.35em] text-sky-100 bg-sky-500/15 rounded-full shadow-sm shadow-sky-500/10 mb-4">
             TRENDING NOW
           </span>

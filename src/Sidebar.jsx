@@ -40,7 +40,7 @@ export default function Sidebar() {
 
       {/* Sidebar */}
       <aside 
-        className={`fixed top-0 left-0 h-screen bg-slate-950/20 backdrop-blur-3xl shadow-[40px_0_100px_rgba(3,5,8,0.8)] z-50 flex flex-col transition-all duration-500
+        className={`fixed top-0 left-0 h-screen smokey-border z-50 flex flex-col transition-all duration-500
           ${isOpen ? 'w-64 translate-x-0' : '-translate-x-full md:translate-x-0 md:w-24'}
         `}
       >
@@ -66,7 +66,7 @@ export default function Sidebar() {
             <input 
               type="text" 
               placeholder="Search..."
-              className="w-full bg-white/5 border border-white/10 rounded-xl py-3 pl-10 pr-4 text-sm text-white placeholder-slate-500 focus:outline-none focus:bg-white/10 transition-all smokey-edge"
+              className="w-full smokey-border rounded-xl py-3 pl-10 pr-4 text-sm text-white placeholder-slate-500 focus:outline-none transition-all"
             />
             <span className="absolute left-3 top-3.5 text-slate-500 group-focus-within:text-sky-400 transition-colors">🔍</span>
           </div>
