@@ -1,4 +1,6 @@
 /* src/styles/variables.css */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+
 /* Color palette */
 :root {
   --color-primary: hsl(210, 80%, 55%);
@@ -11,7 +13,6 @@
 }
 
 /* Font */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
 body {
   font-family: 'Inter', system-ui, sans-serif;
   color: var(--color-text);
