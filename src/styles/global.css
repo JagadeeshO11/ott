@@ -32,52 +32,52 @@ body {
 .rounded-xl {border-radius: 1.5rem;}
 .shadow-glass {background: var(--color-surface); backdrop-filter: blur(12px); box-shadow: 0 4px 30px rgba(0,0,0,0.12);}
 
-/* Advanced Cinematic Effects */
-.smokey-edge {
-  mask-image: linear-gradient(to right, rgba(0,0,0,1) 85%, rgba(0,0,0,0) 100%);
-  -webkit-mask-image: linear-gradient(to right, rgba(0,0,0,1) 85%, rgba(0,0,0,0) 100%);
-}
-
-.glass-panel {
-  background: linear-gradient(135deg, rgba(15, 23, 42, 0.4), rgba(3, 5, 8, 0.6));
-  backdrop-filter: blur(24px) saturate(180%);
-  border: 1px solid rgba(255, 255, 255, 0.05);
-  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.8);
-}
-
-.neon-aura {
-  box-shadow: 0 0 20px rgba(56, 189, 248, 0.3), 0 0 40px rgba(99, 102, 241, 0.2);
-}
-
-.light-sweep {
-  position: relative;
-  overflow: hidden;
-}
-.light-sweep::after {
-  content: "";
-  position: absolute;
-  top: -100%;
-  left: -100%;
-  width: 200%;
-  height: 200%;
-  background: linear-gradient(45deg, transparent 45%, rgba(255,255,255,0.03) 50%, transparent 55%);
-  animation: sweep 8s infinite linear;
+/* AAA Cinematic Filters */
+.film-grain {
+  position: fixed;
+  inset: 0;
   pointer-events: none;
+  z-index: 99;
+  opacity: 0.05;
+  background-image: url("https://www.transparenttextures.com/patterns/60-lines.png");
 }
 
-@keyframes sweep {
-  0% { transform: translate(-30%, -30%); }
-  100% { transform: translate(30%, 30%); }
+.chromatic-aberration {
+  text-shadow: 2px 0 rgba(255,0,0,0.3), -2px 0 rgba(0,255,255,0.3);
 }
 
-@keyframes pulse-glow {
-  0%, 100% { opacity: 0.5; transform: scale(1); }
-  50% { opacity: 1; transform: scale(1.05); }
+.volumetric-fog {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 50% 50%, rgba(56, 189, 248, 0.05), transparent 70%);
+  filter: blur(80px);
+  animation: fog-drift 20s infinite alternate ease-in-out;
 }
 
-.animate-pulse-glow {
-  animation: pulse-glow 3s infinite ease-in-out;
+@keyframes fog-drift {
+  0% { transform: translate(-5%, -5%) scale(1); }
+  100% { transform: translate(5%, 5%) scale(1.1); }
 }
+
+.bloom-glow {
+  filter: drop-shadow(0 0 15px rgba(56, 189, 248, 0.4));
+}
+
+.glass-card {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.01));
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+}
+
+.spring-hover {
+  transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.spring-hover:hover {
+  transform: translateY(-8px) scale(1.04);
+}
+
 
 /* Scrollbar */
 ::-webkit-scrollbar { width: 6px; height: 6px; }

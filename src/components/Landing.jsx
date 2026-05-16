@@ -23,31 +23,46 @@ const Landing = () => {
   if (!movie) return <div className="w-full h-[55vh] md:h-[65vh] bg-slate-950 animate-pulse rounded-md sm:smokey-edge" />;
 
   return (
-    <section className="relative w-full h-[55vh] md:h-[65vh] overflow-hidden rounded-md bg-transparent shadow-[0_35px_80px_rgba(15,23,42,0.45)] smokey-edge">
-      <img
-        src={getImageUrl(movie.backdrop_path || movie.poster_path, 'original')}
-        alt={movie.title || movie.name}
-        className="absolute inset-0 w-full h-full object-cover opacity-70"
-      />
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(56,189,248,0.22),transparent_24%),radial-gradient(circle_at_bottom_right,rgba(168,85,247,0.2),transparent_24%)]" />
-      <div className="absolute inset-0 bg-gradient-to-t from-[#030508] via-transparent to-transparent" />
-      <div className="relative z-20 flex h-full items-end p-6 md:p-12">
-        <div className="w-full md:w-2/3 lg:w-1/2 rounded-md p-8 shadow-2xl smokey-edge smokey-border hover-z-axis">
-          <span className="inline-flex items-center px-4 py-2 text-xs font-bold uppercase tracking-[0.35em] text-sky-100 bg-sky-500/15 rounded-full shadow-sm shadow-sky-500/10 mb-4">
-            TRENDING NOW
-          </span>
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold mb-4 text-white tracking-tight drop-shadow-lg">
+    <section className="relative w-full h-[65vh] md:h-[75vh] lg:h-[85vh] overflow-hidden rounded-[3rem] bg-transparent shadow-[0_50px_100px_rgba(3,5,8,0.8)] smokey-edge light-sweep">
+      {/* Cinematic Hero Backdrop */}
+      <div className="absolute inset-0 overflow-hidden">
+        <img 
+          src={getImageUrl(movie.backdrop_path || movie.poster_path, 'original')} 
+          alt={movie.title || movie.name}
+          className="h-full w-full object-cover object-top brightness-[0.7] contrast-[1.1] transition-transform duration-1000"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#030508] via-[#030508]/40 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-r from-[#030508] via-[#030508]/20 to-transparent" />
+        <div className="volumetric-fog opacity-30" />
+      </div>
+
+      <div className="relative z-20 flex h-full items-end p-10 md:p-16 lg:p-24 pb-20">
+        <div className="w-full md:w-3/4 lg:w-2/3 xl:w-1/2 p-12 glass-panel rounded-[3.5rem] shadow-2xl hover-z-axis transition-all duration-700">
+          <div className="flex items-center gap-3 mb-6">
+             <span className="inline-flex items-center px-4 py-1.5 text-[10px] font-black uppercase tracking-[0.4em] text-sky-400 bg-sky-500/10 rounded-full ring-1 ring-sky-500/20 bloom-glow">
+              Trending AAA
+            </span>
+          </div>
+
+          <h1 className="text-5xl md:text-7xl lg:text-8xl font-black text-white leading-none tracking-tighter chromatic-aberration mb-8 drop-shadow-[0_10px_30px_rgba(0,0,0,0.5)]">
             {movie.title || movie.name}
           </h1>
-          <p className="text-slate-200 mb-8 text-sm md:text-base font-medium leading-relaxed line-clamp-3 drop-shadow">
+          
+          <p className="mb-10 text-lg md:text-xl text-slate-300/90 leading-relaxed font-medium line-clamp-3 md:line-clamp-none max-w-2xl">
             {movie.overview}
           </p>
-          <button 
-            onClick={() => navigate(`/player/${movie.id}`)}
-            className="inline-flex items-center gap-3 rounded-full bg-sky-400/95 px-7 py-3 text-sm font-semibold text-slate-950 shadow-lg shadow-sky-500/30 transition hover:bg-sky-300 active:scale-95"
-          >
-            Play Now
-          </button>
+
+          <div className="flex flex-wrap items-center gap-5">
+            <button 
+              onClick={() => navigate(`/player/${movie.id}`)}
+              className="flex items-center gap-4 bg-white text-black px-12 py-6 rounded-[1.5rem] font-black text-sm uppercase tracking-widest hover:bg-sky-400 hover:text-white transition-all shadow-xl shadow-sky-500/10 active:scale-95"
+            >
+              <span>▶</span> Play Now
+            </button>
+            <button className="flex items-center gap-4 bg-white/5 border border-white/10 text-white px-12 py-6 rounded-[1.5rem] font-black text-sm uppercase tracking-widest hover:bg-white/10 transition-all active:scale-95">
+              <span>＋</span> Add to Watchlist
+            </button>
+          </div>
         </div>
       </div>
     </section>
