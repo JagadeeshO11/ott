@@ -45,7 +45,7 @@ const CatalogGrid = () => {
         ))}
         
         {loading && [...Array(12)].map((_, i) => (
-          <div key={`skeleton-${i}`} className="aspect-[2/3] rounded-2xl bg-slate-800 animate-pulse border border-white/10" />
+          <div key={`skeleton-${i}`} className="aspect-[2/3] rounded-md bg-slate-800/50 animate-pulse smokey-edge" />
         ))}
       </div>
       

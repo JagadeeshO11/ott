@@ -80,9 +80,9 @@ export default function MovieRow({ title, subtitle, fetchMovies, movies: initial
         <div className="flex gap-4 px-4 md:px-6 overflow-hidden">
           {[...Array(6)].map((_, i) => (
             <div key={i} className="flex-none w-36 md:w-44 lg:w-52">
-              <div className="aspect-[2/3] rounded-[1.75rem] bg-slate-800 animate-pulse mb-3 border border-white/10"></div>
-              <div className="h-3.5 bg-slate-800 animate-pulse rounded-full mb-2"></div>
-              <div className="h-3 bg-slate-800/70 animate-pulse rounded-full w-3/4"></div>
+              <div className="aspect-[2/3] rounded-md bg-slate-800/50 animate-pulse mb-3 smokey-edge"></div>
+              <div className="h-3.5 bg-slate-800/50 animate-pulse rounded-full mb-2"></div>
+              <div className="h-3 bg-slate-800/30 animate-pulse rounded-full w-3/4"></div>
             </div>
           ))}
         </div>

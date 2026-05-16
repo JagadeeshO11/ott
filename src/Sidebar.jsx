@@ -40,7 +40,7 @@ export default function Sidebar() {
 
       {/* Sidebar */}
       <aside 
-        className={`fixed top-0 left-0 h-screen bg-slate-950/40 backdrop-blur-3xl border-r border-white/10 shadow-[0_0_60px_rgba(15,23,42,0.35)] z-50 flex flex-col transition-all duration-300
+        className={`fixed top-0 left-0 h-screen bg-slate-950/40 backdrop-blur-3xl shadow-[0_0_60px_rgba(15,23,42,0.35)] z-50 flex flex-col transition-all duration-300
           ${isOpen ? 'w-64 translate-x-0' : '-translate-x-full md:translate-x-0 md:w-20'}
         `}
       >

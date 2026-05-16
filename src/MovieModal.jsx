@@ -121,14 +121,14 @@ export default function MovieModal({ movie, allMovies = [], onClose }) {
                 toggleWatchlist(movie)
                 setSaved(!saved)
               }}
-              className="inline-flex items-center justify-center rounded-full border border-white/10 bg-slate-900/80 px-6 py-3 text-sm font-semibold text-white transition hover:bg-slate-800"
+              className="inline-flex items-center justify-center rounded-full bg-slate-900/80 px-6 py-3 text-sm font-semibold text-white transition hover:bg-slate-800"
             >
               {saved ? 'Saved to Watchlist' : 'Add to Watchlist'}
             </button>
           </div>
 
           {recommendedMovies.length > 0 && (
-            <div className="mt-12 pt-6 border-t border-slate-800/80 -mx-4 md:-mx-8">
+            <div className="mt-12 pt-6 -mx-4 md:-mx-8">
               <MovieRow 
                 title="Recommended Movies" 
                 fetchMovies={async () => recommendedMovies} 

@@ -7,17 +7,17 @@ import CatalogGrid from './components/CatalogGrid'
 
 function App() {
   return (
-    <div className="relative min-h-screen min-w-screen overflow-hidden bg-[#07101d] text-slate-100 font-sans">
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_right,_rgba(56,189,248,0.18),transparent_18%),radial-gradient(circle_at_bottom_left,_rgba(168,85,247,0.14),transparent_22%)]" />
-      <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgba(15,23,42,0.88),rgba(15,23,42,0.96))]" />
+    <div className="relative min-h-screen min-w-screen overflow-hidden bg-[#030508] text-slate-100 font-sans">
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_top,_rgba(76,29,149,0.25),transparent_60%),radial-gradient(ellipse_at_bottom_left,_rgba(14,165,233,0.2),transparent_60%)]" />
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_center,_rgba(15,23,42,0.5),_rgba(3,5,8,0.95))]" />
 
       <Navbar />
 
-      <div className="relative flex min-h-screen pt-20">
+      <div className="relative flex min-h-screen pt-20 z-10">
         <Sidebar />
         <main className="flex-1 pl-0 md:pl-20 min-w-0 py-6">
           <div className="mx-auto max-w-[1600px] px-4 md:px-6">
-            <div className="rounded-[2rem] border border-white/10 bg-white/5 backdrop-blur-3xl shadow-[0_40px_120px_rgba(15,23,42,0.42)] overflow-visible">
+            <div className="bg-transparent overflow-visible">
               <Routes>
                 <Route path="/" element={<Home />} />
                 <Route path="/player/:id" element={<PlayerPage />} />

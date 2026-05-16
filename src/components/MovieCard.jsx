@@ -7,14 +7,14 @@ export default function MovieCard({ movie, onSelect, isInWatchlist, onToggleWatc
       tabIndex={0}
       onClick={() => onSelect(movie)}
       onKeyDown={(event) => event.key === 'Enter' && onSelect(movie)}
-      className="group relative min-w-[180px] max-w-[220px] overflow-visible rounded-md shadow-lg transition duration-300 hover:-translate-y-2 hover:scale-105 hover:z-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-400 cursor-pointer"
+      className="group relative min-w-[180px] max-w-[220px] overflow-visible rounded-md hover-z-axis cursor-pointer"
     >
-      <div className="overflow-hidden rounded-md bg-slate-900">
+      <div className="overflow-hidden rounded-md bg-transparent smokey-edge">
         <img
           src={getImageUrl(movie.poster_path)}
           alt={movie.title || movie.name}
           loading="lazy"
-          className="h-[280px] w-full object-cover transition-transform duration-500 group-hover:scale-110"
+          className="h-[280px] w-full object-cover"
         />
       </div>
 
